@@ -52,7 +52,7 @@ fun CoinkiriTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = coinkiriTypography,
         content = content
     )
 }
