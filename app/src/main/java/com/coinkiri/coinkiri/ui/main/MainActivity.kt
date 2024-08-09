@@ -1,4 +1,4 @@
-package com.coinkiri.coinkiri
+package com.coinkiri.coinkiri.ui.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.coinkiri.coinkiri.ui.theme.CoinkiriTheme
+import com.coinkiri.coinkiri.ui.designsystem.theme.CoinkiriTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
