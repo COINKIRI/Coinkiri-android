@@ -10,4 +10,7 @@
     <string name="coin_talk_description">유저들과 의견을 나눠요!</string>
     <string name="coin_book_description">기초 지식을 배워요!</string>
     <string name="price_check_description">시세를 확인해요!</string>
+
+    <string name="kakao_login">카카오로 시작하기</string>
+    <string name="naver_login">네이버로 시작하기</string>
 </resources>

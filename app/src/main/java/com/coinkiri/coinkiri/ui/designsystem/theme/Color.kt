@@ -16,3 +16,7 @@ val Blue = Color(0xFF0000FF)
 val Red = Color(0xFFFF0000)
 val White = Color(0xFFFFFFFF)
 val Black = Color(0xFF000000)
+
+// login btn
+val Kakao = Color(0XFFFFEB33)
+val Naver = Color(0xFF30C135)
