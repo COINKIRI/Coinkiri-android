@@ -22,7 +22,7 @@ private val YangJinFont = FontFamily(Font(R.font.yangjin_regular, weight = FontW
 
 @Immutable
 data class CoinkiriTypography(
-    val yangJinDisplaySmall: TextStyle,
+    val yangJinHeadlineSmall: TextStyle,
     val displayLarge: TextStyle,
     val displayMedium: TextStyle,
     val displaySmall: TextStyle,
@@ -42,7 +42,7 @@ data class CoinkiriTypography(
 
 val LocalCoinkiriTypography = staticCompositionLocalOf {
     CoinkiriTypography(
-        yangJinDisplaySmall = TextStyle.Default,
+        yangJinHeadlineSmall = TextStyle.Default,
         displayLarge = TextStyle.Default,
         displayMedium = TextStyle.Default,
         displaySmall = TextStyle.Default,
@@ -80,7 +80,7 @@ private fun coinkiriTextStyle(
 )
 
 internal val Typography = CoinkiriTypography(
-    yangJinDisplaySmall = coinkiriTextStyle(fontFamily = YangJinFont, fontWeight = FontWeight.Normal, fontSize = 36.sp, lineHeight = 44.sp),
+    yangJinHeadlineSmall = coinkiriTextStyle(fontFamily = YangJinFont, fontWeight = FontWeight.Normal, fontSize = 24.sp, lineHeight = 32.sp),
 
     displayLarge = coinkiriTextStyle(fontFamily = PretendardFont, fontWeight = FontWeight.Bold, fontSize = 57.sp, lineHeight = 64.sp),
     displayMedium = coinkiriTextStyle(fontFamily = PretendardFont, fontWeight = FontWeight.Bold, fontSize = 45.sp, lineHeight = 52.sp),
