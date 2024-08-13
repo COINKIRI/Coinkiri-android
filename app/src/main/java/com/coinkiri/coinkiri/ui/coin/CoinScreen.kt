@@ -84,71 +84,11 @@ fun CoinItemList() {
 
 
 @Composable
-fun CoinItem() {
-    var coinPrice = 100000
-    var coinPercent = 7.1
-
-    Row(
-        horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(60.dp)
-            .background(White)
-            .padding(vertical = 5.dp, horizontal = 8.dp)
-            .drawBehind {
-                drawBottomUnderline(1.dp, Color.LightGray) // 두께와 색상 조정
-            }
     ) {
-
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-            modifier = Modifier
-                .fillMaxHeight()
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.btc),
-                contentDescription = "btcImg",
-                modifier = Modifier
-                    .size(40.dp)
             )
-
-            Column(
-                modifier = Modifier
-                    .width(70.dp)
-                    .fillMaxHeight()
-            ) {
-                Text(text = "BTC", fontSize = 18.sp)
-                Text(text = "비트코인", fontWeight = FontWeight.Thin)
-            }
         }
-
-        Column(
-            horizontalAlignment = Alignment.End,
-            modifier = Modifier
-                .fillMaxHeight(),
-            //verticalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(text = "₩${DecimalFormat("#,###").format(coinPrice)}", fontSize = 18.sp)
-            Text(text = "+${coinPercent}%")
-        }
-
-
     }
 }
-
-/*TODO 테두리*/
-private fun DrawScope.drawBottomUnderline(thickness: Dp, color: Color) {
-    val strokeWidthPx = thickness.toPx()
-    drawRect(
-        color = color,
-        size = androidx.compose.ui.geometry.Size(
-            width = size.width,
-            height = strokeWidthPx
-        ),
-        topLeft = androidx.compose.ui.geometry.Offset(0f, size.height - strokeWidthPx)
-    )
-}
-
 
 @Preview
 @Composable
