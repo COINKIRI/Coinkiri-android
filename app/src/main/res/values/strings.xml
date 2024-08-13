@@ -2,6 +2,7 @@
     <string name="app_name">coinkiri</string>
     <string name="kr_app_name">코인끼리</string>
 
+
     <string name="coin_talk">코인톡</string>
     <string name="coin_book">코인백과</string>
     <string name="price_check">시세조회</string>
@@ -13,4 +14,6 @@
 
     <string name="kakao_login">카카오로 시작하기</string>
     <string name="naver_login">네이버로 시작하기</string>
+
+    <string name="coin_price">코인시세</string>
 </resources>
