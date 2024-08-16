@@ -23,22 +23,23 @@ fun ChatContent(paddingValues: PaddingValues) {
     var messages by remember {// 이 변수 값이 변경되면 자동으로 ui를 다시 그리게 함.
         mutableStateOf(listOf<String>())//초기값은 빈 문자열 리스트
     }
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(White)
-            .padding(paddingValues)
-            .padding(13.dp)
-    ) {
-        SelectedCoinInfo()
-        LazyColumn(
+    Column {
+        Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+                .background(White)
+                .padding(paddingValues)
+                .padding(16.dp)
         ) {
-            items(messages) { message ->
-                TextBubble(message)
+            SelectedCoinInfo()
+            LazyColumn(
+                modifier = Modifier
+                    .padding(top = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(messages) { message ->
+                    TextBubble(message)
+                }
             }
         }
         ChatInputField(messages = messages) { newMessage ->
