@@ -3,6 +3,7 @@ package com.coinkiri.coinkiri.ui.talkdetail.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,7 +30,7 @@ import com.coinkiri.coinkiri.ui.designsystem.theme.White
 
 
 @Composable
-fun ChatContent() {
+fun ChatContent(paddingValues: PaddingValues) {
     var messages by remember {// 이 변수 값이 변경되면 자동으로 ui를 다시 그리게 함.
         mutableStateOf(listOf<String>())//초기값은 빈 문자열 리스트
     }
@@ -37,6 +38,7 @@ fun ChatContent() {
         modifier = Modifier
             .fillMaxSize()
             .background(White)
+            .padding(paddingValues)
     ) {
         SelectedCoinInfo()
         LazyColumn(
@@ -75,10 +77,4 @@ fun TextBubble(message: String) {
             color = White
         )
     }
-}
-
-@Composable
-@Preview
-fun ChatContentPreview() {
-    ChatContent()
 }

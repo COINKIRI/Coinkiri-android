@@ -16,10 +16,8 @@ fun ChatScreen() {
         topBar = {
             ChatScreenTopBar()
         },
-        content = { paddingValues ->
-            Column(modifier = Modifier.padding(paddingValues)) { // paddingValues 적용
-                ChatContent()
-            }
+        content = { paddingValues -> // paddingValues 적용
+            ChatContent(paddingValues)
         },
     )
 }
