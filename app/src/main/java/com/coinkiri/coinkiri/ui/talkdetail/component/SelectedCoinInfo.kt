@@ -31,101 +31,94 @@ import com.coinkiri.coinkiri.ui.designsystem.theme.CoinkiriTheme
 
 @Composable
 fun SelectedCoinInfo() {
-    Box(
+    Column(
+        verticalArrangement = Arrangement.spacedBy(2.dp),
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(13.dp)
+            .clip(RoundedCornerShape(20.dp))
+            .background(Color(0xFFF3F3F3))
+            .padding(15.dp),
     ) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(2.dp),
-            modifier = Modifier
-                .clip(RoundedCornerShape(20.dp))
-                .background(Color(0xFFF3F3F3))
-                .padding(15.dp),
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
         ) {
+            Image(
+                painter = painterResource(id = R.drawable.btc),
+                contentDescription = "coinImage",
+                modifier = Modifier.size(35.dp)
+            )
             Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier
+                    .fillMaxWidth(),
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.btc),
-                    contentDescription = "coinImage",
-                    modifier = Modifier.size(35.dp)
-                )
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier
-                        .fillMaxWidth(),
+                Column(
+                    horizontalAlignment = Alignment.Start
                 ) {
-                    Column(
-                        horizontalAlignment = Alignment.Start
+                    Text(
+                        text = "BTC",
+                        style = CoinkiriTheme.typography.titleMedium
+                    )
+                    Text(
+                        text = "비트코인",
+                        style = CoinkiriTheme.typography.titleSmall
+                    )
+                }
+                Column(
+                    horizontalAlignment = Alignment.End
+                ) {
+                    Text(
+                        text = "₩ 100,000,000",
+                        style = CoinkiriTheme.typography.titleMedium
+                    )
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
-                            text = "BTC",
-                            style = CoinkiriTheme.typography.titleMedium
+                            text = "+ 12.1%",
+                            style = CoinkiriTheme.typography.titleSmall,
+                            color = Color.Red,
                         )
                         Text(
-                            text = "비트코인",
-                            style = CoinkiriTheme.typography.titleSmall
+                            text = "▲ 54,321원",
+                            style = CoinkiriTheme.typography.titleSmall,
+                            color = Color.Red
                         )
-                    }
-                    Column(
-                        horizontalAlignment = Alignment.End
-                    ) {
-                        Text(
-                            text = "₩ 100,000,000",
-                            style = CoinkiriTheme.typography.titleMedium
-                        )
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(10.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            Text(
-                                text = "+ 12.1%",
-                                style = CoinkiriTheme.typography.titleSmall,
-                                color = Color.Red,
-                            )
-                            Text(
-                                text = "▲ 54,321원",
-                                style = CoinkiriTheme.typography.titleSmall,
-                                color = Color.Red
-                            )
-                        }
                     }
                 }
             }
-            HorizontalDivider(
-                modifier = Modifier
-                    .padding(horizontal = 8.dp)
-                    .padding(top = 8.dp),
-                color = Color(0xFFD8D8D8)
-            )
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
+        }
+        HorizontalDivider(
+            modifier = Modifier
+                .padding(horizontal = 8.dp)
+                .padding(top = 8.dp),
+            color = Color(0xFFD8D8D8)
+        )
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            TextButton(
+                onClick = { /*TODO*/ },
+                contentPadding = PaddingValues(0.dp),
+                shape = RoundedCornerShape(0.dp),
             ) {
-                TextButton(
-                    onClick = { /*TODO*/ },
-                    contentPadding = PaddingValues(0.dp),
-                    shape = RoundedCornerShape(0.dp),
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
                 ) {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(10.dp),
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.AutoGraph,
-                            contentDescription = "차트아이콘",
-                            tint = Black
-                        )
-                        Text(text = "차트 확인하기", color = Color.Black)
-                    }
+                    Icon(
+                        imageVector = Icons.Outlined.AutoGraph,
+                        contentDescription = "차트아이콘",
+                        tint = Black
+                    )
+                    Text(text = "차트 확인하기", color = Color.Black)
                 }
             }
         }
     }
 }
-
 
 @Preview
 @Composable

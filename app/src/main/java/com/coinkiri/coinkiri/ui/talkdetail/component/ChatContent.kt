@@ -28,6 +28,7 @@ fun ChatContent(paddingValues: PaddingValues) {
             .fillMaxSize()
             .background(White)
             .padding(paddingValues)
+            .padding(13.dp)
     ) {
         SelectedCoinInfo()
         LazyColumn(
