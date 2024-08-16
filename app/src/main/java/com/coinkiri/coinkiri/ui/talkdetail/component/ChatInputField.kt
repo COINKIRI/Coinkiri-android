@@ -37,7 +37,9 @@ fun ChatInputField(messages: List<String>, onMessageSent: (String) -> Unit) {
 
     BottomAppBar(
         containerColor = SemiBlue,
-        contentPadding = PaddingValues(10.dp)
+        contentPadding = PaddingValues(10.dp),
+        modifier = Modifier
+            .clip(RoundedCornerShape(topStart = 5.dp, topEnd = 5.dp))
     ) {
         Row(
             modifier = Modifier
@@ -64,7 +66,6 @@ fun ChatInputField(messages: List<String>, onMessageSent: (String) -> Unit) {
                     onMessageSent(text) //람다형식으로 전달
                     text = "" //전송후 텍스트 필트 초기화 시킴
                 }
-
             }) {
                 Icon(
                     imageVector = Icons.Filled.ArrowCircleUp,
@@ -73,10 +74,4 @@ fun ChatInputField(messages: List<String>, onMessageSent: (String) -> Unit) {
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun ChatInputFieldPreview() {
-    //ChatInputField()
 }
