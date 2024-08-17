@@ -32,11 +32,13 @@ import com.coinkiri.coinkiri.ui.designsystem.theme.White
 import com.coinkiri.coinkiri.ui.talk.component.CoinTalkItem
 
 @Composable
-fun TalkScreen() {
+fun TalkScreen(
+    onBackClick: () -> Unit
+) {
     Scaffold(
         topBar = {
             TalkScreenTopBar(
-                onBackClick = {},
+                onBackClick = onBackClick,
                 onSearchClick = {}
             )
         },
@@ -112,6 +114,8 @@ fun CoinTalkInfo() {
 @Composable
 fun CoinTalkItemPreview() {
     CoinkiriTheme {
-        TalkScreen()
+        TalkScreen(
+            onBackClick = {}
+        )
     }
 }

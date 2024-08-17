@@ -8,6 +8,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.coinkiri.coinkiri.ui.home.HomeScreen
+import com.coinkiri.coinkiri.ui.talk.TalkScreen
 
 @Composable
 fun MainScreen() {
@@ -32,6 +33,7 @@ private fun MainScreenContent(
             startDestination = navigator.startDestination
         ) {
             homeScreen(navigator)
+            talkScreen(navigator)
 private fun NavGraphBuilder.homeScreen(navigator: ScreenNavigator) {
     composable(Route.HomeScreen.routeName) {
         HomeScreen(
@@ -39,6 +41,14 @@ private fun NavGraphBuilder.homeScreen(navigator: ScreenNavigator) {
             onTalkClick = { navigator.navigateTalk() },
             onPriceClick = { navigator.navigateCoin() },
             onBookClick = { }
+        )
+    }
+}
+
+private fun NavGraphBuilder.talkScreen(navigator: ScreenNavigator) {
+    composable(Route.TalkScreen.routeName) {
+        TalkScreen(
+            onBackClick = { navigator.popBackStack() }
         )
     }
 }
