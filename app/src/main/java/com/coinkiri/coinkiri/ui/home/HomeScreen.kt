@@ -35,15 +35,25 @@ import com.coinkiri.coinkiri.ui.home.component.CoinTalkMenuCard
 import com.coinkiri.coinkiri.ui.home.component.MenuTabCard
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    onTalkClick: () -> Unit,
+    onBookClick: () -> Unit,
+    onPriceClick: () -> Unit,
+    onProfileClick: () -> Unit
+) {
     Scaffold(
         topBar = {
             HomeTopBar(
-                onProfileIconClick = { /*TODO 내정보 화면으로 이동*/ }
+                onProfileClick = onProfileClick
             )
         },
         content = { innerPadding ->
-            HomeScreenContent(innerPadding)
+            HomeScreenContent(
+                innerPadding,
+                onTalkClick = onTalkClick,
+                onPriceClick = onPriceClick,
+                onBookClick = onBookClick
+            )
         }
     )
 }
@@ -51,7 +61,7 @@ fun HomeScreen() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun HomeTopBar(
-    onProfileIconClick: () -> Unit
+    onProfileClick: () -> Unit
 ) {
     TopAppBar(
         modifier = Modifier,
@@ -63,11 +73,11 @@ private fun HomeTopBar(
         },
         actions = {
             IconButton(
-                onClick = onProfileIconClick
+                onClick = onProfileClick
             ) {
                 Icon(
                     imageVector = Icons.Outlined.Person,
-                    contentDescription = stringResource(id = R.string.my_page)
+                    contentDescription = stringResource(id = R.string.profile)
                 )
             }
         },
@@ -81,7 +91,10 @@ private fun HomeTopBar(
 
 @Composable
 private fun HomeScreenContent(
-    padding: PaddingValues
+    padding: PaddingValues,
+    onTalkClick: () -> Unit,
+    onBookClick: () -> Unit,
+    onPriceClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -91,9 +104,9 @@ private fun HomeScreenContent(
     ) {
         InfoSection()
         MenuSection(
-            onTalkClick = { /*TODO 코인톡 화면으로 이동*/ },
-            onBookClick = { /*TODO 코인백과 화면으로 이동*/ },
-            onPriceClick = { /*TODO 시세조회 화면으로 이동*/ }
+            onTalkClick = onTalkClick,
+            onBookClick = onBookClick,
+            onPriceClick = onPriceClick
         )
     }
 }
@@ -185,6 +198,11 @@ private fun MenuSection(
 @Composable
 private fun HomeScreenPreview() {
     CoinkiriTheme {
-        HomeScreen()
+        HomeScreen(
+            onBookClick = {},
+            onTalkClick = {},
+            onPriceClick = {},
+            onProfileClick = {}
+        )
     }
 }
