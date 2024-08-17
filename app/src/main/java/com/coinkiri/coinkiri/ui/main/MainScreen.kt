@@ -10,10 +10,10 @@ import androidx.navigation.compose.composable
 import com.coinkiri.coinkiri.ui.coin.CoinScreen
 import com.coinkiri.coinkiri.ui.home.HomeScreen
 import com.coinkiri.coinkiri.ui.profile.ProfileScreen
+import com.coinkiri.coinkiri.ui.splash.SplashScreen
 import com.coinkiri.coinkiri.ui.talk.TalkScreen
 
 @Composable
-fun MainScreen() {
 fun MainScreen(
     navigator: ScreenNavigator = rememberScreenNavigator()
 ) {
@@ -34,11 +34,20 @@ private fun MainScreenContent(
             navController = navigator.navController,
             startDestination = navigator.startDestination
         ) {
+            splashScreen(navigator)
             homeScreen(navigator)
             coinScreen(navigator)
             talkScreen(navigator)
             profileScreen(navigator)
         }
+    }
+}
+
+private fun NavGraphBuilder.splashScreen(navigator: ScreenNavigator) {
+    composable(Route.SplashScreen.routeName) {
+        SplashScreen(
+            goHome = { navigator.navigateHome() }
+        )
     }
 }
 

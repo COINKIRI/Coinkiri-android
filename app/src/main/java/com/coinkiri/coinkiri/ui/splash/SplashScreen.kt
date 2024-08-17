@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -20,14 +21,24 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.coinkiri.coinkiri.R
 import com.coinkiri.coinkiri.ui.designsystem.theme.CoinkiriTheme
 import com.coinkiri.coinkiri.ui.designsystem.theme.Gray500
 import com.coinkiri.coinkiri.ui.designsystem.theme.SemiBlue
 import com.coinkiri.coinkiri.ui.designsystem.theme.White
+import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen() {
+fun SplashScreen(
+    goHome: () -> Unit,
+) {
+
+    LaunchedEffect(Unit) {
+        delay(1200L)
+        goHome()
+    }
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -68,8 +79,10 @@ fun SplashScreen() {
 
 @Preview
 @Composable
-fun SplashScreenPreview() {
+private fun SplashScreenPreview() {
     CoinkiriTheme {
-        SplashScreen()
+        SplashScreen(
+            goHome = {}
+        )
     }
 }
