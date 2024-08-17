@@ -18,11 +18,13 @@ import com.coinkiri.coinkiri.ui.designsystem.theme.CoinkiriTheme
 import com.coinkiri.coinkiri.ui.designsystem.theme.White
 
 @Composable
-fun CoinScreen() {
+fun CoinScreen(
+    onBackIconClick: () -> Unit
+) {
     Scaffold(
         topBar = {
             CoinScreenTopBar(
-                onBackIconClick = {},
+                onBackIconClick = onBackIconClick,
                 onSearchIconClick = {}
             )
         },
@@ -34,11 +36,11 @@ fun CoinScreen() {
 
 @Composable
 fun CoinScreenContent(
-    paddingValues: PaddingValues
+    padding: PaddingValues
 ) {
     Column(
         modifier = Modifier
-            .padding(paddingValues)
+            .padding(padding)
             .background(White)
             .padding(top = 8.dp)
             .fillMaxSize()
@@ -69,6 +71,8 @@ fun CoinItems() {
 @Composable
 fun CoinScreenPreview() {
     CoinkiriTheme {
-        CoinScreen()
+        CoinScreen(
+            onBackIconClick = {}
+        )
     }
 }

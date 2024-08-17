@@ -1,4 +1,4 @@
-package com.coinkiri.coinkiri.ui.main.component
+package com.coinkiri.coinkiri.ui.home.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
