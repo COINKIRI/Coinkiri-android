@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.coinkiri.coinkiri.ui.coin.CoinScreen
 import com.coinkiri.coinkiri.ui.home.HomeScreen
+import com.coinkiri.coinkiri.ui.profile.ProfileScreen
 import com.coinkiri.coinkiri.ui.talk.TalkScreen
 
 @Composable
@@ -36,6 +37,11 @@ private fun MainScreenContent(
             homeScreen(navigator)
             coinScreen(navigator)
             talkScreen(navigator)
+            profileScreen(navigator)
+        }
+    }
+}
+
 private fun NavGraphBuilder.homeScreen(navigator: ScreenNavigator) {
     composable(Route.HomeScreen.routeName) {
         HomeScreen(
@@ -63,4 +69,10 @@ private fun NavGraphBuilder.talkScreen(navigator: ScreenNavigator) {
     }
 }
 
+private fun NavGraphBuilder.profileScreen(navigator: ScreenNavigator) {
+    composable(Route.ProfileScreen.routeName) {
+        ProfileScreen(
+            onBackClick = { navigator.popBackStack() }
+        )
+    }
 }
