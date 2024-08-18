@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -23,6 +24,15 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField(
+            "String",
+            "KAKAO_NATIVE_APP_KEY",
+            gradleLocalProperties(rootDir, providers).getProperty("kakaoNativeAppKey"),
+        )
+
+        manifestPlaceholders["KAKAO_NATIVE_APP_KEY"] =
+            gradleLocalProperties(rootDir, providers).getProperty("kakaoNativeAppKey")
     }
 
     buildTypes {
@@ -45,6 +55,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -64,6 +75,8 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)
+
+    implementation(libs.kakao.v2.user)
 
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
