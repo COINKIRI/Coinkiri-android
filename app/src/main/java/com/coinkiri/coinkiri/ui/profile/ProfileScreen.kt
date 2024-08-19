@@ -64,7 +64,7 @@ private fun ProfileContent(
     ) {
         ProfileImg()
         Spacer(modifier = Modifier.height(42.dp))
-        Text(text = "닉네임", fontSize = 28.sp)
+        Text(text = "닉네임", style = CoinkiriTheme.typography.displaySmall)
         Spacer(modifier = Modifier.height(42.dp))
         Column(
             modifier = Modifier
