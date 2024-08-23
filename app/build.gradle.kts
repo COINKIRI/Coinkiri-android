@@ -84,6 +84,9 @@ dependencies {
 
     implementation(libs.kotlinx.serialization.json)
 
+    implementation(libs.timber)
+    implementation(libs.process.phoenix)
+
     implementation(libs.kakao.v2.user)
 
     implementation(libs.hilt.android)
