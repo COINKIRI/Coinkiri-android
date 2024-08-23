@@ -50,7 +50,26 @@ private fun MainScreenContent(
 private fun NavGraphBuilder.splashScreen(navigator: ScreenNavigator) {
     composable(Route.SplashScreen.routeName) {
         SplashScreen(
-            goHome = { navigator.navigateHome() }
+            navigateToHome = {
+                val navOptions = navOptions {
+                    popUpTo(navigator.navController.graph.findStartDestination().id) {
+                        inclusive = true
+                    }
+                    launchSingleTop = true
+                }
+                navigator.navigateToHome(navOptions = navOptions)
+            },
+            navigateToLogIn = {
+                val navOptions = navOptions {
+                    popUpTo(navigator.navController.graph.findStartDestination().id) {
+                        inclusive = true
+                    }
+                    launchSingleTop = true
+                }
+                navigator.navigateToLogin(
+                    navOptions = navOptions
+                )
+            }
         )
     }
 }

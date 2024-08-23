@@ -12,11 +12,17 @@ class ScreenNavigator(
 ) {
     val startDestination = Route.SplashScreen.routeName
 
-    fun navigateHome() {
-        navController.navigate(Route.HomeScreen.routeName)
     fun navigateToHome(navOptions: NavOptions) =
         navController.navigate(Route.HomeScreen.routeName, navOptions)
 
+    fun navigateToLogin(navOptions: NavOptions? = null) {
+        val options = navOptions ?: navOptions {
+            popUpTo(navController.graph.startDestinationId) {
+                inclusive = false
+            }
+            launchSingleTop = true
+        }
+        navController.navigate(Route.LoginScreen.routeName, options)
     }
 
     fun navigateCoin() {
