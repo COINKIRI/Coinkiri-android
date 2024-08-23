@@ -16,12 +16,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.flowWithLifecycle
 import com.coinkiri.coinkiri.R
 import com.coinkiri.coinkiri.ui.designsystem.theme.CoinkiriTheme
 import com.coinkiri.coinkiri.ui.designsystem.theme.Gray500
@@ -31,12 +33,25 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(
-    goHome: () -> Unit,
+    navigateToHome: (Boolean) -> Unit,
+    navigateToLogIn: () -> Unit,
+    viewModel: SplashViewModel = hiltViewModel(),
 ) {
 
+    val lifecycleOwner = LocalLifecycleOwner.current
+
     LaunchedEffect(Unit) {
-        delay(1200L)
-        goHome()
+        viewModel.showSplash()
+    }
+
+    LaunchedEffect(viewModel.sideEffects, lifecycleOwner) {
+        viewModel.sideEffects.flowWithLifecycle(lifecycle = lifecycleOwner.lifecycle)
+            .collect { sideEffect ->
+                when (sideEffect) {
+                    is SplashSideEffect.NavigateToHome -> navigateToHome(true)
+                    is SplashSideEffect.NavigateLogin -> navigateToLogIn()
+                }
+            }
     }
 
     Column(
@@ -82,7 +97,8 @@ fun SplashScreen(
 private fun SplashScreenPreview() {
     CoinkiriTheme {
         SplashScreen(
-            goHome = {}
+            navigateToHome = {},
+            navigateToLogIn = {}
         )
     }
 }

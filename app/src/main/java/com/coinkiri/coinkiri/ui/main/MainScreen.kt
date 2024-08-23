@@ -4,11 +4,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navOptions
 import com.coinkiri.coinkiri.ui.coin.CoinScreen
 import com.coinkiri.coinkiri.ui.home.HomeScreen
+import com.coinkiri.coinkiri.ui.login.LoginRoute
 import com.coinkiri.coinkiri.ui.profile.ProfileScreen
 import com.coinkiri.coinkiri.ui.splash.SplashScreen
 import com.coinkiri.coinkiri.ui.talk.TalkScreen
@@ -39,6 +42,7 @@ private fun MainScreenContent(
             coinScreen(navigator)
             talkScreen(navigator)
             profileScreen(navigator)
+            loginRoute(navigator)
         }
     }
 }
@@ -46,7 +50,26 @@ private fun MainScreenContent(
 private fun NavGraphBuilder.splashScreen(navigator: ScreenNavigator) {
     composable(Route.SplashScreen.routeName) {
         SplashScreen(
-            goHome = { navigator.navigateHome() }
+            navigateToHome = {
+                val navOptions = navOptions {
+                    popUpTo(navigator.navController.graph.findStartDestination().id) {
+                        inclusive = true
+                    }
+                    launchSingleTop = true
+                }
+                navigator.navigateToHome(navOptions = navOptions)
+            },
+            navigateToLogIn = {
+                val navOptions = navOptions {
+                    popUpTo(navigator.navController.graph.findStartDestination().id) {
+                        inclusive = true
+                    }
+                    launchSingleTop = true
+                }
+                navigator.navigateToLogin(
+                    navOptions = navOptions
+                )
+            }
         )
     }
 }
@@ -58,6 +81,22 @@ private fun NavGraphBuilder.homeScreen(navigator: ScreenNavigator) {
             onTalkClick = { navigator.navigateTalk() },
             onPriceClick = { navigator.navigateCoin() },
             onBookClick = { }
+        )
+    }
+}
+
+private fun NavGraphBuilder.loginRoute(navigator: ScreenNavigator) {
+    composable(Route.LoginScreen.routeName) {
+        LoginRoute(
+            navigateToHome = {
+                val navOptions = navOptions {
+                    popUpTo(navigator.navController.graph.findStartDestination().id) {
+                        inclusive = true
+                    }
+                    launchSingleTop = true
+                }
+                navigator.navigateToHome(navOptions = navOptions)
+            }
         )
     }
 }

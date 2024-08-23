@@ -1,8 +1,11 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.compose.complier)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
@@ -11,6 +14,10 @@ plugins {
 android {
     namespace = "com.coinkiri.coinkiri"
     compileSdk = 34
+
+    val properties = Properties().apply {
+        load(rootProject.file("local.properties").inputStream())
+    }
 
     defaultConfig {
         applicationId = "com.coinkiri.coinkiri"
@@ -23,10 +30,26 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField(
+            "String",
+            "KAKAO_NATIVE_APP_KEY",
+            gradleLocalProperties(rootDir, providers).getProperty("kakaoNativeAppKey"),
+        )
+
+        manifestPlaceholders["KAKAO_NATIVE_APP_KEY"] =
+            gradleLocalProperties(rootDir, providers).getProperty("kakaoNative.AppKey")
     }
 
     buildTypes {
+        debug {
+            val devUrl = properties["coinkiriDevUrl"] as? String ?: ""
+            buildConfigField("String", "BASE_URL", devUrl)
+        }
         release {
+            val prodUrl = properties["coinkiriProdUrl"] as? String ?: ""
+            buildConfigField("String", "BASE_URL", prodUrl)
+
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -45,6 +68,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -59,11 +83,24 @@ android {
 dependencies {
 
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.datastore)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)
+
+    implementation(platform(libs.okhttp.bom))
+    implementation(libs.bundles.okhttp)
+    implementation(libs.bundles.retrofit)
+
+    implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.timber)
+    implementation(libs.process.phoenix)
+
+    implementation(libs.kakao.v2.user)
 
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)

@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,7 +45,7 @@ fun LoginBtn(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
-                .height(45.dp)
+                .height(55.dp)
                 .fillMaxWidth()
 
         ) {
@@ -69,7 +68,7 @@ fun LoginBtn(
 
 @Preview
 @Composable
-fun KakaoLoginBtnPreview() {
+private fun KakaoLoginBtnPreview() {
     CoinkiriTheme {
         LoginBtn(
             text = R.string.kakao_login,
@@ -83,7 +82,7 @@ fun KakaoLoginBtnPreview() {
 
 @Preview
 @Composable
-fun NaverLoginBtnPreview() {
+private fun NaverLoginBtnPreview() {
     CoinkiriTheme {
         LoginBtn(
             text = R.string.naver_login,
