@@ -38,7 +38,7 @@ android {
         )
 
         manifestPlaceholders["KAKAO_NATIVE_APP_KEY"] =
-            gradleLocalProperties(rootDir, providers).getProperty("kakaoNativeAppKey")
+            gradleLocalProperties(rootDir, providers).getProperty("kakaoNative.AppKey")
     }
 
     buildTypes {
