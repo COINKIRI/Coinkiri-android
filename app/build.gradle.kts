@@ -1,5 +1,6 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
@@ -13,6 +14,10 @@ plugins {
 android {
     namespace = "com.coinkiri.coinkiri"
     compileSdk = 34
+
+    val properties = Properties().apply {
+        load(rootProject.file("local.properties").inputStream())
+    }
 
     defaultConfig {
         applicationId = "com.coinkiri.coinkiri"
@@ -37,7 +42,14 @@ android {
     }
 
     buildTypes {
+        debug {
+            val devUrl = properties["coinkiriDevUrl"] as? String ?: ""
+            buildConfigField("String", "BASE_URL", devUrl)
+        }
         release {
+            val prodUrl = properties["coinkiriProdUrl"] as? String ?: ""
+            buildConfigField("String", "BASE_URL", prodUrl)
+
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
