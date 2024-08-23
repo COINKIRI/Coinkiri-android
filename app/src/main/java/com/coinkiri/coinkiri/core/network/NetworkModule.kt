@@ -1,6 +1,7 @@
 package com.coinkiri.coinkiri.core.network
 
 import com.coinkiri.coinkiri.BuildConfig
+import com.coinkiri.coinkiri.BuildConfig.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -8,10 +9,12 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Converter
+import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import timber.log.Timber
 import javax.inject.Singleton
@@ -53,5 +56,54 @@ object NetworkModule {
         level =
             if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
     }
+
+    @Provides
+    @Singleton
+    @JWT
+    fun provideOauthInterceptor(authInterceptor: OauthInterceptor): Interceptor = authInterceptor
+
+    @Provides
+    @Singleton
+    @JWT
+    fun provideJWTOkHttpClient(
+        loggingInterceptor: Interceptor,
+        @JWT oauthInterceptor: Interceptor
+    ): OkHttpClient = OkHttpClient.Builder()
+        .addInterceptor(loggingInterceptor)
+        .addInterceptor(oauthInterceptor)
+        .build()
+
+    @Provides
+    @Singleton
+    @REISSUE
+    fun provideOkHttpClient(
+        loggingInterceptor: Interceptor,
+    ): OkHttpClient = OkHttpClient.Builder()
+        .addInterceptor(loggingInterceptor)
+        .build()
+
+    @Provides
+    @Singleton
+    @JWT
+    fun provideJWTRetrofit(
+        @JWT client: OkHttpClient,
+        factory: Converter.Factory,
+    ): Retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .client(client)
+        .addConverterFactory(factory)
+        .build()
+
+    @Provides
+    @Singleton
+    @REISSUE
+    fun provideReissueRetrofit(
+        @REISSUE client: OkHttpClient,
+        factory: Converter.Factory,
+    ): Retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .client(client)
+        .addConverterFactory(factory)
+        .build()
 
 }
