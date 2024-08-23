@@ -32,4 +32,4 @@ val Black = Color(0xFF000000)
 
 // login btn
 val Kakao = Color(0XFFFEE500)
-val Naver = Color(0xFF30C135)
+val Naver = Color(0xFF03C75A)

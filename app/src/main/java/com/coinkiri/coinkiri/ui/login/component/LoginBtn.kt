@@ -45,7 +45,7 @@ fun LoginBtn(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
-                .height(45.dp)
+                .height(55.dp)
                 .fillMaxWidth()
 
         ) {
