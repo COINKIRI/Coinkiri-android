@@ -3,7 +3,9 @@ package com.coinkiri.coinkiri.ui.main
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navOptions
 
 class ScreenNavigator(
     val navController: NavHostController
@@ -12,6 +14,9 @@ class ScreenNavigator(
 
     fun navigateHome() {
         navController.navigate(Route.HomeScreen.routeName)
+    fun navigateToHome(navOptions: NavOptions) =
+        navController.navigate(Route.HomeScreen.routeName, navOptions)
+
     }
 
     fun navigateCoin() {
