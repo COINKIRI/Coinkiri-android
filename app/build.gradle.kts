@@ -70,6 +70,7 @@ android {
 dependencies {
 
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.datastore)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.activity.compose)
