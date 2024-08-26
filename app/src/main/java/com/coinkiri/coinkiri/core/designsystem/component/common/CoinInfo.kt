@@ -1,4 +1,4 @@
-package com.coinkiri.coinkiri.ui.designsystem.component.common
+package com.coinkiri.coinkiri.core.designsystem.component.common
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
@@ -17,9 +17,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.coinkiri.coinkiri.R
-import com.coinkiri.coinkiri.ui.designsystem.theme.CoinkiriTheme
-import com.coinkiri.coinkiri.ui.designsystem.theme.Gray400
-import com.coinkiri.coinkiri.ui.designsystem.theme.White
+import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
+import com.coinkiri.coinkiri.core.designsystem.theme.Gray400
+import com.coinkiri.coinkiri.core.designsystem.theme.White
 
 @Composable
 fun CoinInfo(

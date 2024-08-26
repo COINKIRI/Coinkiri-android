@@ -26,8 +26,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.coinkiri.coinkiri.R
-import com.coinkiri.coinkiri.ui.designsystem.theme.Black
-import com.coinkiri.coinkiri.ui.designsystem.theme.CoinkiriTheme
+import com.coinkiri.coinkiri.core.designsystem.theme.Black
+import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
 
 @Composable
 fun SelectedCoinInfo() {

@@ -15,8 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.coinkiri.coinkiri.ui.designsystem.theme.SemiBlue
-import com.coinkiri.coinkiri.ui.designsystem.theme.White
+import com.coinkiri.coinkiri.core.designsystem.theme.SemiBlue
+import com.coinkiri.coinkiri.core.designsystem.theme.White
 
 /*TODO 말풍선*/
 @Composable

@@ -1,4 +1,4 @@
-package com.coinkiri.coinkiri.ui.designsystem.theme
+package com.coinkiri.coinkiri.core.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 

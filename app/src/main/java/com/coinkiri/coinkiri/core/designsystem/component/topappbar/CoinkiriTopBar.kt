@@ -1,4 +1,4 @@
-package com.coinkiri.coinkiri.ui.designsystem.component.topappbar
+package com.coinkiri.coinkiri.core.designsystem.component.topappbar
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
@@ -15,9 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.coinkiri.coinkiri.R
-import com.coinkiri.coinkiri.ui.designsystem.theme.Black
-import com.coinkiri.coinkiri.ui.designsystem.theme.CoinkiriTheme
-import com.coinkiri.coinkiri.ui.designsystem.theme.White
+import com.coinkiri.coinkiri.core.designsystem.theme.Black
+import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
+import com.coinkiri.coinkiri.core.designsystem.theme.White
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

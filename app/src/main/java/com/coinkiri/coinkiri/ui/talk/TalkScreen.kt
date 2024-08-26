@@ -23,12 +23,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.coinkiri.coinkiri.R
-import com.coinkiri.coinkiri.ui.designsystem.component.button.JoinChatButton
-import com.coinkiri.coinkiri.ui.designsystem.component.common.CoinInfo
-import com.coinkiri.coinkiri.ui.designsystem.component.topappbar.CoinkiriTopBar
-import com.coinkiri.coinkiri.ui.designsystem.theme.CoinkiriTheme
-import com.coinkiri.coinkiri.ui.designsystem.theme.Gray100
-import com.coinkiri.coinkiri.ui.designsystem.theme.White
+import com.coinkiri.coinkiri.core.designsystem.component.button.JoinChatButton
+import com.coinkiri.coinkiri.core.designsystem.component.common.CoinInfo
+import com.coinkiri.coinkiri.core.designsystem.component.topappbar.CoinkiriTopBar
+import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
+import com.coinkiri.coinkiri.core.designsystem.theme.Gray100
+import com.coinkiri.coinkiri.core.designsystem.theme.White
 import com.coinkiri.coinkiri.ui.talk.component.CoinTalkItem
 
 @Composable
