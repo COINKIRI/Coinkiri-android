@@ -23,6 +23,7 @@ import com.coinkiri.coinkiri.ui.profile.component.FirstSettingList
 import com.coinkiri.coinkiri.ui.profile.component.ProfileImg
 import com.coinkiri.coinkiri.ui.profile.component.SecondSettingList
 import com.coinkiri.coinkiri.ui.profile.component.ThirdSettingList
+import com.coinkiri.coinkiri.ui.profile.component.UserInfoItem
 
 @Composable
 fun ProfileScreen(
@@ -62,10 +63,7 @@ private fun ProfileContent(
             .background(White),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        ProfileImg()
-        Spacer(modifier = Modifier.height(42.dp))
-        Text(text = "닉네임", style = CoinkiriTheme.typography.displaySmall)
-        Spacer(modifier = Modifier.height(42.dp))
+        UserInfoItem()
         Column(
             modifier = Modifier
                 .padding(10.dp),
