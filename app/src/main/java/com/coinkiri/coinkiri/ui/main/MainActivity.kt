@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.coinkiri.coinkiri.ui.designsystem.theme.CoinkiriTheme
+import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

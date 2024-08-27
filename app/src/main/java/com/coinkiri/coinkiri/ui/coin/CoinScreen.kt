@@ -14,8 +14,8 @@ import androidx.compose.ui.unit.dp
 import com.coinkiri.coinkiri.ui.coin.component.CoinItem
 import com.coinkiri.coinkiri.ui.coin.component.CoinScreenTopBar
 import com.coinkiri.coinkiri.ui.coin.component.CoinSortBar
-import com.coinkiri.coinkiri.ui.designsystem.theme.CoinkiriTheme
-import com.coinkiri.coinkiri.ui.designsystem.theme.White
+import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
+import com.coinkiri.coinkiri.core.designsystem.theme.White
 
 @Composable
 fun CoinScreen(

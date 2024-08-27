@@ -1,4 +1,4 @@
-package com.coinkiri.coinkiri.ui.designsystem.component.button
+package com.coinkiri.coinkiri.core.designsystem.component.button
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -15,8 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.coinkiri.coinkiri.ui.designsystem.theme.CoinkiriTheme
-import com.coinkiri.coinkiri.ui.designsystem.theme.SemiBlue
+import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
+import com.coinkiri.coinkiri.core.designsystem.theme.SemiBlue
 
 @Composable
 fun JoinChatButton(

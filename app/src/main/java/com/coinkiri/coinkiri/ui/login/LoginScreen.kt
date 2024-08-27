@@ -21,12 +21,12 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.flowWithLifecycle
 import com.coinkiri.coinkiri.R
-import com.coinkiri.coinkiri.ui.designsystem.theme.Black
-import com.coinkiri.coinkiri.ui.designsystem.theme.CoinkiriTheme
-import com.coinkiri.coinkiri.ui.designsystem.theme.Kakao
-import com.coinkiri.coinkiri.ui.designsystem.theme.Naver
-import com.coinkiri.coinkiri.ui.designsystem.theme.SemiBlue
-import com.coinkiri.coinkiri.ui.designsystem.theme.White
+import com.coinkiri.coinkiri.core.designsystem.theme.Black
+import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
+import com.coinkiri.coinkiri.core.designsystem.theme.Kakao
+import com.coinkiri.coinkiri.core.designsystem.theme.Naver
+import com.coinkiri.coinkiri.core.designsystem.theme.SemiBlue
+import com.coinkiri.coinkiri.core.designsystem.theme.White
 import com.coinkiri.coinkiri.ui.login.component.LoginBtn
 import kotlinx.coroutines.flow.collectLatest
 

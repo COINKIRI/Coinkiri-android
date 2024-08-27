@@ -25,10 +25,10 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.flowWithLifecycle
 import com.coinkiri.coinkiri.R
-import com.coinkiri.coinkiri.ui.designsystem.theme.CoinkiriTheme
-import com.coinkiri.coinkiri.ui.designsystem.theme.Gray500
-import com.coinkiri.coinkiri.ui.designsystem.theme.SemiBlue
-import com.coinkiri.coinkiri.ui.designsystem.theme.White
+import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
+import com.coinkiri.coinkiri.core.designsystem.theme.Gray500
+import com.coinkiri.coinkiri.core.designsystem.theme.SemiBlue
+import com.coinkiri.coinkiri.core.designsystem.theme.White
 import kotlinx.coroutines.delay
 
 @Composable

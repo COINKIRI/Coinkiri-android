@@ -12,13 +12,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.coinkiri.coinkiri.R
-import com.coinkiri.coinkiri.ui.designsystem.component.topappbar.CoinkiriTopBar
-import com.coinkiri.coinkiri.ui.designsystem.theme.CoinkiriTheme
-import com.coinkiri.coinkiri.ui.designsystem.theme.White
+import com.coinkiri.coinkiri.core.designsystem.component.topappbar.CoinkiriTopBar
+import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
+import com.coinkiri.coinkiri.core.designsystem.theme.White
 import com.coinkiri.coinkiri.ui.profile.component.FirstSettingList
 import com.coinkiri.coinkiri.ui.profile.component.ProfileImg
 import com.coinkiri.coinkiri.ui.profile.component.SecondSettingList
@@ -45,7 +45,7 @@ private fun ProfileTopBar(
     onBackClick: () -> Unit
 ) {
     CoinkiriTopBar(
-        title = R.string.profile,
+        title = stringResource(id = R.string.profile),
         isShowBackButton = true,
         onBackClick = onBackClick
     )

@@ -1,4 +1,4 @@
-package com.coinkiri.coinkiri.ui.designsystem.theme
+package com.coinkiri.coinkiri.core.designsystem.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

@@ -20,8 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.coinkiri.coinkiri.ui.designsystem.theme.Black
-import com.coinkiri.coinkiri.ui.designsystem.theme.White
+import com.coinkiri.coinkiri.core.designsystem.theme.Black
+import com.coinkiri.coinkiri.core.designsystem.theme.White
 
 @Composable
 fun FirstSettingList() {
