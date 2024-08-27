@@ -12,7 +12,7 @@ import androidx.navigation.navOptions
 import com.coinkiri.coinkiri.ui.coin.CoinScreen
 import com.coinkiri.coinkiri.ui.home.HomeScreen
 import com.coinkiri.coinkiri.ui.login.LoginRoute
-import com.coinkiri.coinkiri.ui.profile.ProfileScreen
+import com.coinkiri.coinkiri.ui.profile.ProfileRoute
 import com.coinkiri.coinkiri.ui.splash.SplashScreen
 import com.coinkiri.coinkiri.ui.talk.TalkScreen
 
@@ -119,8 +119,9 @@ private fun NavGraphBuilder.talkScreen(navigator: ScreenNavigator) {
 
 private fun NavGraphBuilder.profileScreen(navigator: ScreenNavigator) {
     composable(Route.ProfileScreen.routeName) {
-        ProfileScreen(
-            onBackClick = { navigator.popBackStack() }
+        ProfileRoute(
+            onBackClick = { navigator.popBackStack() },
+            navigateToLogin = { navigator.navigateToLogin() }
         )
     }
 }
