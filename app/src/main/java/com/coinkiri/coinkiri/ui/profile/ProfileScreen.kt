@@ -69,7 +69,7 @@ fun ProfileRoute(
             dismissButtonText = "취소",
             onConfirm = {
                 showCheckLogoutDialog = false
-                viewModel.logOut()
+                viewModel.logout()
             },
             onDismiss = { showCheckLogoutDialog = false }
         )
