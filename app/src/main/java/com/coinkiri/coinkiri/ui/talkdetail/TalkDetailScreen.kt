@@ -3,6 +3,7 @@ package com.coinkiri.coinkiri.ui.talkdetail
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.coinkiri.coinkiri.core.designsystem.component.bottombar.BottomTextField
 import com.coinkiri.coinkiri.core.designsystem.component.topappbar.CoinkiriTopBar
 import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
 import com.coinkiri.coinkiri.ui.talkdetail.component.ChatContent
@@ -18,6 +19,9 @@ fun TalkDetailScreen() {
         content = { paddingValues -> // paddingValues 적용
             ChatContent(paddingValues)
         },
+        bottomBar = {
+            BottomTextField()
+        }
     )
 }
 
