@@ -104,7 +104,7 @@ private fun NavGraphBuilder.loginRoute(navigator: ScreenNavigator) {
 private fun NavGraphBuilder.coinScreen(navigator: ScreenNavigator) {
     composable(Route.CoinScreen.routeName) {
         CoinScreen(
-            onBackIconClick = { navigator.popBackStack() }
+            onBackClick = { navigator.popBackStack() }
         )
     }
 }
