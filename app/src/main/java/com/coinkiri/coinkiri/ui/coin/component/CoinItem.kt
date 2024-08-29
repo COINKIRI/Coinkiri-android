@@ -14,22 +14,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.coinkiri.coinkiri.R
 import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
+import com.coinkiri.coinkiri.core.util.byteArrayToPainter
+import com.coinkiri.coinkiri.domain.coin.entity.CoinResponseEntity
 
 @Composable
 fun CoinItem(
-    onCoinItemClick: () -> Unit
+    onCoinItemClick: () -> Unit,
+    coin: CoinResponseEntity
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .clickable { onCoinItemClick }
-            .padding(vertical = 5.dp, horizontal = 10.dp)
+            .padding(vertical = 5.dp, horizontal = 15.dp)
             .fillMaxWidth()
     ) {
         Row(
@@ -37,21 +38,21 @@ fun CoinItem(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             Image(
-                painter = painterResource(id = R.drawable.btc),
-                contentDescription = "coinImage",
-                modifier = Modifier.size(35.dp)
+                painter = byteArrayToPainter(coin.symbol),
+                contentDescription = "coinSymbolImage",
+                modifier = Modifier.size(24.dp)
             )
 
             Column(
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
-                    text = "BTC",
-                    style = CoinkiriTheme.typography.titleMedium
+                    text = coin.koreanName,
+                    style = CoinkiriTheme.typography.titleSmall
                 )
                 Text(
-                    text = "비트코인",
-                    style = CoinkiriTheme.typography.titleSmall
+                    text = coin.marketName,
+                    style = CoinkiriTheme.typography.labelSmall
                 )
             }
         }
@@ -81,7 +82,12 @@ fun CoinItem(
 fun CoinItemPreview() {
     CoinkiriTheme {
         CoinItem(
-            onCoinItemClick = {}
+            onCoinItemClick = {},
+            coin = CoinResponseEntity(
+                marketName = "",
+                koreanName = "",
+                symbol = ""
+            )
         )
     }
 }
