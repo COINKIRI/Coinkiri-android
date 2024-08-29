@@ -96,6 +96,7 @@ dependencies {
     implementation(libs.bundles.retrofit)
 
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.datetime)
 
     implementation(libs.timber)
     implementation(libs.process.phoenix)
