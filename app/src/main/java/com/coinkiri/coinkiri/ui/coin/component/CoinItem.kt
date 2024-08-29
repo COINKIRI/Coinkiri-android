@@ -30,7 +30,7 @@ fun CoinItem(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .clickable { onCoinItemClick }
-            .padding(vertical = 5.dp, horizontal = 10.dp)
+            .padding(vertical = 5.dp, horizontal = 15.dp)
             .fillMaxWidth()
     ) {
         Row(
@@ -40,19 +40,19 @@ fun CoinItem(
             Image(
                 painter = byteArrayToPainter(coin.symbol),
                 contentDescription = "coinSymbolImage",
-                modifier = Modifier.size(35.dp)
+                modifier = Modifier.size(24.dp)
             )
 
             Column(
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
-                    text = coin.marketName,
-                    style = CoinkiriTheme.typography.titleMedium
-                )
-                Text(
                     text = coin.koreanName,
                     style = CoinkiriTheme.typography.titleSmall
+                )
+                Text(
+                    text = coin.marketName,
+                    style = CoinkiriTheme.typography.labelSmall
                 )
             }
         }
