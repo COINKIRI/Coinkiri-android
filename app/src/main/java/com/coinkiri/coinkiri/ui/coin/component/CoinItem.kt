@@ -14,15 +14,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.coinkiri.coinkiri.R
 import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
+import com.coinkiri.coinkiri.core.util.byteArrayToPainter
+import com.coinkiri.coinkiri.domain.coin.entity.CoinResponseEntity
 
 @Composable
 fun CoinItem(
-    onCoinItemClick: () -> Unit
+    onCoinItemClick: () -> Unit,
+    coin: CoinResponseEntity
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -37,8 +38,8 @@ fun CoinItem(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             Image(
-                painter = painterResource(id = R.drawable.btc),
-                contentDescription = "coinImage",
+                painter = byteArrayToPainter(coin.symbol),
+                contentDescription = "coinSymbolImage",
                 modifier = Modifier.size(35.dp)
             )
 
@@ -46,11 +47,11 @@ fun CoinItem(
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
-                    text = "BTC",
+                    text = coin.marketName,
                     style = CoinkiriTheme.typography.titleMedium
                 )
                 Text(
-                    text = "비트코인",
+                    text = coin.koreanName,
                     style = CoinkiriTheme.typography.titleSmall
                 )
             }
@@ -81,7 +82,12 @@ fun CoinItem(
 fun CoinItemPreview() {
     CoinkiriTheme {
         CoinItem(
-            onCoinItemClick = {}
+            onCoinItemClick = {},
+            coin = CoinResponseEntity(
+                marketName = "",
+                koreanName = "",
+                symbol = ""
+            )
         )
     }
 }

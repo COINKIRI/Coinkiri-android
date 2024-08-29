@@ -8,10 +8,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.coinkiri.coinkiri.R
 import com.coinkiri.coinkiri.core.designsystem.component.topappbar.CoinkiriTopBar
 import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
@@ -72,11 +76,20 @@ fun CoinScreenContent(
 
 @Composable
 fun CoinItems() {
+    val viewModel: CoinViewModel = hiltViewModel()
+    val coinList by viewModel.coinList.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.fetchCoinList()
+    }
+
     LazyColumn(
         modifier = Modifier.fillMaxSize()
     ) {
-        items(30) {
+        items(coinList.size) { index ->
+            val coin = coinList[index]
             CoinItem(
+                coin = coin,
                 onCoinItemClick = {}
             )
         }
