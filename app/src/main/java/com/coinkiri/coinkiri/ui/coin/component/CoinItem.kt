@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
 import com.coinkiri.coinkiri.core.util.byteArrayToPainter
-import com.coinkiri.coinkiri.domain.coin.entity.CoinResponseEntity
+import com.coinkiri.coinkiri.domain.coin.entity.response.CoinResponseEntity
 
 @Composable
 fun CoinItem(

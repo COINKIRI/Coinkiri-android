@@ -2,7 +2,7 @@ package com.coinkiri.coinkiri.ui.coin
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.coinkiri.coinkiri.domain.coin.entity.CoinResponseEntity
+import com.coinkiri.coinkiri.domain.coin.entity.response.CoinResponseEntity
 import com.coinkiri.coinkiri.domain.coin.usecase.GetCoinListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

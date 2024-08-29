@@ -2,7 +2,7 @@ package com.coinkiri.coinkiri.data.coin.repositoryimpl
 
 import com.coinkiri.coinkiri.data.coin.datasource.CoinDataSource
 import com.coinkiri.coinkiri.data.coin.mapper.toCoinEntity
-import com.coinkiri.coinkiri.domain.coin.entity.CoinResponseEntity
+import com.coinkiri.coinkiri.domain.coin.entity.response.CoinResponseEntity
 import com.coinkiri.coinkiri.domain.coin.repository.CoinRepository
 import javax.inject.Inject
 
