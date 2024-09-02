@@ -1,4 +1,4 @@
-package com.coinkiri.coinkiri.data.coin.dto.response
+package com.coinkiri.coinkiri.data.ticker.dto.response
 
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
