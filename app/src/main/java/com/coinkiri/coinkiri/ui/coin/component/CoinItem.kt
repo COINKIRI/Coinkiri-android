@@ -17,13 +17,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
+import com.coinkiri.coinkiri.core.util.Formatter
 import com.coinkiri.coinkiri.core.util.byteArrayToPainter
-import com.coinkiri.coinkiri.domain.coin.entity.CoinResponseEntity
+import com.coinkiri.coinkiri.domain.coin.entity.MergedCoinTickerEntity
 
 @Composable
 fun CoinItem(
     onCoinItemClick: () -> Unit,
-    coin: CoinResponseEntity
+    coin: MergedCoinTickerEntity
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -61,11 +62,11 @@ fun CoinItem(
             horizontalAlignment = Alignment.End
         ) {
             Text(
-                text = "₩ 100,000,000",
+                text = "${Formatter.formattedTradePrice(coin.tradePrice)} 원",
                 style = CoinkiriTheme.typography.titleMedium
             )
             Text(
-                text = "+ 12.1%",
+                text = Formatter.formattedSignedChangeRate(coin.signedChangeRate),
                 style = CoinkiriTheme.typography.titleSmall
             )
         }
@@ -79,14 +80,16 @@ fun CoinItem(
 
 @Preview(showBackground = true)
 @Composable
-fun CoinItemPreview() {
+private fun CoinItemPreview() {
     CoinkiriTheme {
         CoinItem(
             onCoinItemClick = {},
-            coin = CoinResponseEntity(
+            coin = MergedCoinTickerEntity(
                 marketName = "",
+                symbol = "",
                 koreanName = "",
-                symbol = ""
+                tradePrice = 0.0,
+                signedChangeRate = 0.0
             )
         )
     }

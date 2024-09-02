@@ -9,3 +9,7 @@ annotation class REISSUE
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class JWT
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class WEBSOCKET

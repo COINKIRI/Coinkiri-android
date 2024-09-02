@@ -33,6 +33,12 @@ android {
 
         buildConfigField(
             "String",
+            "UPBIT_SOCKET_URL",
+            gradleLocalProperties(rootDir, providers).getProperty("upbitSocketUrl"),
+        )
+
+        buildConfigField(
+            "String",
             "KAKAO_NATIVE_APP_KEY",
             gradleLocalProperties(rootDir, providers).getProperty("kakaoNativeAppKey"),
         )

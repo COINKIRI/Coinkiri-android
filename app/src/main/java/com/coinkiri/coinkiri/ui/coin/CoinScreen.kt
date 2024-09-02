@@ -77,7 +77,7 @@ fun CoinScreenContent(
 @Composable
 fun CoinItems() {
     val viewModel: CoinViewModel = hiltViewModel()
-    val coinList by viewModel.coinList.collectAsState()
+    val coinInfo by viewModel.mergedCoinTickerList.collectAsState()
 
     LaunchedEffect(Unit) {
         viewModel.fetchCoinList()
@@ -86,8 +86,8 @@ fun CoinItems() {
     LazyColumn(
         modifier = Modifier.fillMaxSize()
     ) {
-        items(coinList.size) { index ->
-            val coin = coinList[index]
+        items(coinInfo.size) { index ->
+            val coin = coinInfo[index]
             CoinItem(
                 coin = coin,
                 onCoinItemClick = {}
