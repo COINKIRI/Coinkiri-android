@@ -17,6 +17,7 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -80,6 +81,16 @@ object NetworkModule {
         loggingInterceptor: Interceptor,
     ): OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
+        .build()
+
+    @Provides
+    @Singleton
+    @WEBSOCKET
+    fun provideWebSocketOkHttpClient(
+        loggingInterceptor: Interceptor,
+    ): OkHttpClient = OkHttpClient.Builder()
+        .addInterceptor(loggingInterceptor)
+        .readTimeout(0, TimeUnit.SECONDS)
         .build()
 
     @Provides
