@@ -25,7 +25,8 @@ import com.coinkiri.coinkiri.ui.coin.component.CoinSortBar
 
 @Composable
 fun CoinScreen(
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    onCoinItemClick: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -35,7 +36,10 @@ fun CoinScreen(
             )
         },
         content = { innerPadding ->
-            CoinScreenContent(innerPadding)
+            CoinScreenContent(
+                padding = innerPadding,
+                onCoinItemClick = onCoinItemClick
+            )
         }
     )
 }
@@ -56,7 +60,8 @@ private fun CoinScreenTopBar(
 
 @Composable
 fun CoinScreenContent(
-    padding: PaddingValues
+    padding: PaddingValues,
+    onCoinItemClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -70,12 +75,16 @@ fun CoinScreenContent(
             onSortByCurrentPriceClick = {},
             onSortByChangeRateClick = {}
         )
-        CoinItems()
+        CoinItems(
+            onCoinItemClick = onCoinItemClick
+        )
     }
 }
 
 @Composable
-fun CoinItems() {
+fun CoinItems(
+    onCoinItemClick: () -> Unit
+) {
     val viewModel: CoinViewModel = hiltViewModel()
     val coinInfo by viewModel.mergedCoinTickerList.collectAsState()
 
@@ -90,7 +99,7 @@ fun CoinItems() {
             val coin = coinInfo[index]
             CoinItem(
                 coin = coin,
-                onCoinItemClick = {}
+                onCoinItemClick = onCoinItemClick
             )
         }
     }
@@ -102,6 +111,7 @@ private fun CoinScreenPreview() {
     CoinkiriTheme {
         CoinScreen(
             onBackClick = {},
+            onCoinItemClick = {}
         )
     }
 }

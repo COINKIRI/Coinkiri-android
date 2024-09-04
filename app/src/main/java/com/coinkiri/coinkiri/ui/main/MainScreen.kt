@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navOptions
 import com.coinkiri.coinkiri.ui.coin.CoinScreen
+import com.coinkiri.coinkiri.ui.coindetail.CoinDetailScreen
 import com.coinkiri.coinkiri.ui.home.HomeScreen
 import com.coinkiri.coinkiri.ui.login.LoginRoute
 import com.coinkiri.coinkiri.ui.profile.ProfileRoute
@@ -40,6 +41,7 @@ private fun MainScreenContent(
             splashScreen(navigator)
             homeScreen(navigator)
             coinScreen(navigator)
+            coinDetailScreen(navigator)
             talkScreen(navigator)
             profileScreen(navigator)
             loginRoute(navigator)
@@ -104,10 +106,18 @@ private fun NavGraphBuilder.loginRoute(navigator: ScreenNavigator) {
 private fun NavGraphBuilder.coinScreen(navigator: ScreenNavigator) {
     composable(Route.CoinScreen.routeName) {
         CoinScreen(
-            onBackClick = { navigator.popBackStack() }
+            onBackClick = { navigator.popBackStack() },
+            onCoinItemClick = { navigator.navigateToCoinDetail() }
         )
     }
 }
+
+private fun NavGraphBuilder.coinDetailScreen(navigator: ScreenNavigator) =
+    composable(Route.CoinDetailScreen.routeName) {
+        CoinDetailScreen(
+            onBackClick = { navigator.popBackStack() },
+        )
+    }
 
 private fun NavGraphBuilder.talkScreen(navigator: ScreenNavigator) {
     composable(Route.TalkScreen.routeName) {
