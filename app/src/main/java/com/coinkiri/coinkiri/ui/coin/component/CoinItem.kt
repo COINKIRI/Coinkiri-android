@@ -30,7 +30,7 @@ fun CoinItem(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
-            .clickable { onCoinItemClick }
+            .clickable { onCoinItemClick() }
             .padding(vertical = 5.dp, horizontal = 15.dp)
             .fillMaxWidth()
     ) {
