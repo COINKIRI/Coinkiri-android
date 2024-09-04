@@ -107,6 +107,8 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
     ksp(libs.hilt.compiler)
 
+    implementation("io.coil-kt:coil-compose:2.6.0")
+
     testImplementation(libs.junit)
 
     androidTestImplementation(libs.androidx.test.junit)
