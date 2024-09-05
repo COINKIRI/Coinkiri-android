@@ -9,25 +9,33 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.coinkiri.coinkiri.R
 import com.coinkiri.coinkiri.core.designsystem.component.topappbar.CoinkiriTopBar
 import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
 import com.coinkiri.coinkiri.core.designsystem.theme.White
 import com.coinkiri.coinkiri.ui.coin.component.CoinItem
 import com.coinkiri.coinkiri.ui.coin.component.CoinSortBar
+import com.coinkiri.coinkiri.ui.coin.model.CoinModel
 
 @Composable
 fun CoinScreen(
     onBackClick: () -> Unit,
     onCoinItemClick: () -> Unit
 ) {
+    val viewModel: CoinViewModel = hiltViewModel()
+    val coinInfo by viewModel.coinModel.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.fetchCoinList()
+    }
+
     Scaffold(
         topBar = {
             CoinScreenTopBar(
@@ -39,6 +47,7 @@ fun CoinScreen(
             CoinScreenContent(
                 padding = innerPadding,
                 onCoinItemClick = onCoinItemClick
+                coinInfo = coinInfo
             )
         }
     )
@@ -62,6 +71,7 @@ private fun CoinScreenTopBar(
 fun CoinScreenContent(
     padding: PaddingValues,
     onCoinItemClick: () -> Unit
+    coinInfo: List<CoinModel>
 ) {
     Column(
         modifier = Modifier
@@ -77,6 +87,7 @@ fun CoinScreenContent(
         )
         CoinItems(
             onCoinItemClick = onCoinItemClick
+            coinInfo = coinInfo
         )
     }
 }
@@ -84,14 +95,8 @@ fun CoinScreenContent(
 @Composable
 fun CoinItems(
     onCoinItemClick: () -> Unit
+    coinInfo: List<CoinModel>
 ) {
-    val viewModel: CoinViewModel = hiltViewModel()
-    val coinInfo by viewModel.mergedCoinTickerList.collectAsState()
-
-    LaunchedEffect(Unit) {
-        viewModel.fetchCoinList()
-    }
-
     LazyColumn(
         modifier = Modifier.fillMaxSize()
     ) {
