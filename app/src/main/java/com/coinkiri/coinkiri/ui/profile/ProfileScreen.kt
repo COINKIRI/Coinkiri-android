@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,8 +27,9 @@ import com.coinkiri.coinkiri.core.designsystem.component.dialog.ConfirmationDial
 import com.coinkiri.coinkiri.core.designsystem.component.topappbar.CoinkiriTopBar
 import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
 import com.coinkiri.coinkiri.core.designsystem.theme.White
-import com.coinkiri.coinkiri.ui.profile.component.SettingOptionsItem
+import com.coinkiri.coinkiri.domain.user.entity.UserEntity
 import com.coinkiri.coinkiri.ui.profile.component.OptionItem
+import com.coinkiri.coinkiri.ui.profile.component.SettingOptionsItem
 import com.coinkiri.coinkiri.ui.profile.component.UserInfoItem
 import kotlinx.coroutines.flow.collectLatest
 
@@ -56,9 +58,16 @@ fun ProfileRoute(
             }
     }
 
+    LaunchedEffect(Unit) {
+        viewModel.fetchUserInfo()
+    }
+
+    val userInfo by viewModel.userInfo.collectAsState()
+
     ProfileScreen(
         onBackClick = onBackClick,
-        onLogOutClick = { showCheckLogoutDialog = true }
+        onLogOutClick = { showCheckLogoutDialog = true },
+        userInfo = userInfo
     )
 
     if (showCheckLogoutDialog) {
@@ -79,7 +88,8 @@ fun ProfileRoute(
 @Composable
 private fun ProfileScreen(
     onBackClick: () -> Unit,
-    onLogOutClick: () -> Unit
+    onLogOutClick: () -> Unit,
+    userInfo: UserEntity?
 ) {
 
     Scaffold(
@@ -91,7 +101,8 @@ private fun ProfileScreen(
         content = { padding ->
             ProfileContent(
                 padding = padding,
-                onLogOutClick = onLogOutClick
+                onLogOutClick = onLogOutClick,
+                userInfo = userInfo
             )
         }
     )
@@ -111,7 +122,8 @@ private fun ProfileTopBar(
 @Composable
 private fun ProfileContent(
     padding: PaddingValues,
-    onLogOutClick: () -> Unit
+    onLogOutClick: () -> Unit,
+    userInfo: UserEntity?
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -120,7 +132,7 @@ private fun ProfileContent(
             .fillMaxSize()
             .background(White)
     ) {
-        UserInfoItem()
+        UserInfoItem(userInfo)
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.padding(10.dp),
@@ -167,7 +179,11 @@ private fun ProfileScreenPreview() {
     CoinkiriTheme {
         ProfileScreen(
             onBackClick = {},
-            onLogOutClick = {}
+            onLogOutClick = {},
+            userInfo = UserEntity(
+                pic = "",
+                nickname = ""
+            )
         )
     }
 }

@@ -22,9 +22,13 @@ import com.coinkiri.coinkiri.R
 import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
 import com.coinkiri.coinkiri.core.designsystem.theme.Gray300
 import com.coinkiri.coinkiri.core.designsystem.theme.White
+import com.coinkiri.coinkiri.core.util.byteArrayToPainter
+import com.coinkiri.coinkiri.domain.user.entity.UserEntity
 
 @Composable
-fun UserInfoItem() {
+fun UserInfoItem(
+    userInfo: UserEntity?
+) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -42,16 +46,20 @@ fun UserInfoItem() {
             ),
             modifier = Modifier.size(150.dp)
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.img_coinkiri_app_icon_dark),
-                contentDescription = "profile img"
-            )
+            if (userInfo != null) {
+                Image(
+                    painter = byteArrayToPainter(userInfo.pic),
+                    contentDescription = "default img"
+                )
+            }
         }
         Spacer(modifier = Modifier.padding(12.dp))
-        Text(
-            text = "유저네임",
-            style = CoinkiriTheme.typography.headlineSmall
-        )
+        if (userInfo != null) {
+            Text(
+                text = userInfo.nickname,
+                style = CoinkiriTheme.typography.headlineSmall
+            )
+        }
     }
 }
 
@@ -59,6 +67,11 @@ fun UserInfoItem() {
 @Composable
 private fun UserInfoItemPreview() {
     CoinkiriTheme {
-        UserInfoItem()
+        UserInfoItem(
+            UserEntity(
+                pic = "",
+                nickname = ""
+            )
+        )
     }
 }
