@@ -9,8 +9,8 @@ import jakarta.inject.Inject
 class UserRepositoryImpl @Inject constructor(
     private val userDataSource: UserDataSource
 ) : UserRepository {
-    override suspend fun getUserDetail(accessToken: String): Result<UserEntity> = runCatching {
-        val result = userDataSource.getUser(accessToken)
+    override suspend fun getUserDetail(): Result<UserEntity> = runCatching {
+        val result = userDataSource.getUser()
 
         if (result.code == SUCCESS_CODE) {
             result.data.toUserEntity()
