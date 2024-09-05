@@ -1,7 +1,5 @@
 package com.coinkiri.coinkiri.ui.profile.component
 
-import android.graphics.BitmapFactory
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -17,7 +15,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,12 +22,13 @@ import com.coinkiri.coinkiri.R
 import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
 import com.coinkiri.coinkiri.core.designsystem.theme.Gray300
 import com.coinkiri.coinkiri.core.designsystem.theme.White
-import java.util.Base64
+import com.coinkiri.coinkiri.core.util.byteArrayToPainter
+import com.coinkiri.coinkiri.domain.user.entity.UserEntity
 
 @Composable
-fun UserInfoItem(nickname: String, pic: String) {
-    val imageBytes = Base64.getDecoder().decode(pic)
-    val imageBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+fun UserInfoItem(
+    userInfo: UserEntity?
+) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -48,23 +46,32 @@ fun UserInfoItem(nickname: String, pic: String) {
             ),
             modifier = Modifier.size(150.dp)
         ) {
-            Image(
-                bitmap = imageBitmap.asImageBitmap(),
-                contentDescription = "profile img"
-            )
+            if (userInfo != null) {
+                Image(
+                    painter = byteArrayToPainter(userInfo.pic),
+                    contentDescription = "default img"
+                )
+            }
         }
         Spacer(modifier = Modifier.padding(12.dp))
-        Text(
-            text = nickname,
-            style = CoinkiriTheme.typography.headlineSmall
-        )
+        if (userInfo != null) {
+            Text(
+                text = userInfo.nickname,
+                style = CoinkiriTheme.typography.headlineSmall
+            )
+        }
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//private fun UserInfoItemPreview() {
-//    CoinkiriTheme {
-//        UserInfoItem()
-//    }
-//}
+@Preview(showBackground = true)
+@Composable
+private fun UserInfoItemPreview() {
+    CoinkiriTheme {
+        UserInfoItem(
+            UserEntity(
+                pic = "",
+                nickname = ""
+            )
+        )
+    }
+}

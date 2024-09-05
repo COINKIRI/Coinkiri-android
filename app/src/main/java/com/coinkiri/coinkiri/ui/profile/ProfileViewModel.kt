@@ -19,7 +19,6 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val tokenRepository: TokenRepository,
     private val getUserInfoUseCase: GetUserInfoUseCase,
-    private val userRepository: UserRepository,
 ) : ViewModel() {
 
     private val _profileSideEffects = MutableSharedFlow<ProfileSideEffect>()
@@ -27,12 +26,8 @@ class ProfileViewModel @Inject constructor(
         get() = _profileSideEffects
 
     private val _userInfo = MutableStateFlow<UserEntity?>(null)
-    val userInfo: StateFlow<UserEntity?> = _userInfo
-
-    init {
-        getUserInfo()
-    }
-
+    val userInfo: StateFlow<UserEntity?>
+        get() = _userInfo
 
     fun logout() {
         viewModelScope.launch {
@@ -59,25 +54,17 @@ class ProfileViewModel @Inject constructor(
         )
     }
 
-
-    private fun getToken(): String = tokenRepository.getAccessToken()
-
-    private fun getUserInfo() {
+    fun fetchUserInfo() {
         viewModelScope.launch {
-            val userInfo = userRepository.getUserDetail(getToken())
-            Timber.d("나의 정보: $userInfo")
+            val result = getUserInfoUseCase()
+
+            result
+                .onSuccess { userInfo ->
+                    _userInfo.value = userInfo
+                }
+                .onFailure { exception ->
+                    "${exception.message}"
+                }
         }
     }
-
-
-//    suspend fun getUserNickname(): String {
-//        val nickname = userRepository
-//    }
-//
-//    suspend fun getUserPic(): String {
-//        userInfo.collect { user ->
-//            val pic = user?.pic ?: "이미지가 없음"
-//            Timber.d("getUserPic: "+pic)
-//        }
-//    }
 }
