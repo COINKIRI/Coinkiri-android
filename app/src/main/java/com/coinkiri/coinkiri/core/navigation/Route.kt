@@ -10,7 +10,7 @@ sealed class Route(
     data object HomeScreen : Route("home")
 
     @Serializable
-    data object CoinScreen : Route("coin")
+    data object CoinListScreen : Route("coinList")
 
     @Serializable
     data object TalkScreen : Route("talk")

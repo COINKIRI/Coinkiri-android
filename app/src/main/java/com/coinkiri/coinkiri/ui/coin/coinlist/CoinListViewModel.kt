@@ -1,4 +1,4 @@
-package com.coinkiri.coinkiri.ui.coin
+package com.coinkiri.coinkiri.ui.coin.coinlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CoinViewModel @Inject constructor(
+class CoinListViewModel @Inject constructor(
     private val getCoinListUseCase: GetCoinListUseCase,
     private val getTicketsUseCase: GetTicketsUseCase,
 ) : ViewModel() {

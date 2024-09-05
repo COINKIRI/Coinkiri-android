@@ -1,4 +1,4 @@
-package com.coinkiri.coinkiri.ui.coin
+package com.coinkiri.coinkiri.ui.coin.coinlist
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -25,11 +25,11 @@ import com.coinkiri.coinkiri.ui.coin.component.CoinSortBar
 import com.coinkiri.coinkiri.ui.coin.model.CoinModel
 
 @Composable
-fun CoinScreen(
+fun CoinListScreen(
     onBackClick: () -> Unit,
     navigateToCoinDetail: () -> Unit,
 ) {
-    val viewModel: CoinViewModel = hiltViewModel()
+    val viewModel: CoinListViewModel = hiltViewModel()
     val coinInfo by viewModel.coinModel.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
@@ -38,13 +38,13 @@ fun CoinScreen(
 
     Scaffold(
         topBar = {
-            CoinScreenTopBar(
+            CoinListScreenTopBar(
                 onBackClick = onBackClick,
                 onSearchClick = {}
             )
         },
         content = { innerPadding ->
-            CoinScreenContent(
+            CoinListScreenContent(
                 padding = innerPadding,
                 navigateToCoinDetail = navigateToCoinDetail,
                 coinInfo = coinInfo
@@ -54,7 +54,7 @@ fun CoinScreen(
 }
 
 @Composable
-private fun CoinScreenTopBar(
+private fun CoinListScreenTopBar(
     onBackClick: () -> Unit,
     onSearchClick: () -> Unit,
 ) {
@@ -68,7 +68,7 @@ private fun CoinScreenTopBar(
 }
 
 @Composable
-fun CoinScreenContent(
+fun CoinListScreenContent(
     padding: PaddingValues,
     navigateToCoinDetail: () -> Unit,
     coinInfo: List<CoinModel>
@@ -112,9 +112,9 @@ fun CoinItems(
 
 @Preview(showBackground = true)
 @Composable
-private fun CoinScreenPreview() {
+private fun CoinListScreenPreview() {
     CoinkiriTheme {
-        CoinScreen(
+        CoinListScreen(
             onBackClick = {},
             navigateToCoinDetail = {}
         )

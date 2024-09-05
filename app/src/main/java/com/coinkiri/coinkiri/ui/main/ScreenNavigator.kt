@@ -26,8 +26,8 @@ class ScreenNavigator(
         navController.navigate(Route.LoginScreen.routeName, options)
     }
 
-    fun navigateCoin() {
-        navController.navigate(Route.CoinScreen.routeName)
+    fun navigateCoinList() {
+        navController.navigate(Route.CoinListScreen.routeName)
     }
 
     fun navigateToCoinDetail() =
