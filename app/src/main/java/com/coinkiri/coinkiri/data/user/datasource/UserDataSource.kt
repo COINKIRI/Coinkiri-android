@@ -4,5 +4,5 @@ import com.coinkiri.coinkiri.core.network.BaseResponse
 import com.coinkiri.coinkiri.data.user.dto.UserResponseDto
 
 interface UserDataSource {
-    suspend fun getUser(accessToken: String): BaseResponse<UserResponseDto>
+    suspend fun getUser(): BaseResponse<UserResponseDto>
 }
