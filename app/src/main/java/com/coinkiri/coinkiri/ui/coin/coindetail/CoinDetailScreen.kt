@@ -1,4 +1,4 @@
-package com.coinkiri.coinkiri.ui.coindetail
+package com.coinkiri.coinkiri.ui.coin.coindetail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,9 +17,9 @@ import com.coinkiri.coinkiri.core.designsystem.component.topappbar.CoinkiriTopBa
 import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
 import com.coinkiri.coinkiri.core.designsystem.theme.Gray200
 import com.coinkiri.coinkiri.core.designsystem.theme.White
-import com.coinkiri.coinkiri.ui.coindetail.component.CoinChartItem
-import com.coinkiri.coinkiri.ui.coindetail.component.CoinDetailInfoItem
-import com.coinkiri.coinkiri.ui.coindetail.component.NavigateToCoinTalkButton
+import com.coinkiri.coinkiri.ui.coin.component.CoinChartItem
+import com.coinkiri.coinkiri.ui.coin.component.CoinDetailInfoItem
+import com.coinkiri.coinkiri.ui.coin.component.NavigateToCoinTalkButton
 
 @Composable
 fun CoinDetailScreen(
