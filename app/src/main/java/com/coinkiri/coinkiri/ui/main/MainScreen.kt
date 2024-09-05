@@ -15,6 +15,7 @@ import androidx.navigation.navOptions
 import com.coinkiri.coinkiri.core.navigation.Route
 import com.coinkiri.coinkiri.ui.coin.coinlist.CoinListScreen
 import com.coinkiri.coinkiri.ui.coin.coindetail.CoinDetailScreen
+import com.coinkiri.coinkiri.ui.coin.navigation.coinGraph
 import com.coinkiri.coinkiri.ui.home.navigation.homeNavGraph
 import com.coinkiri.coinkiri.ui.login.navigation.loginGraph
 import com.coinkiri.coinkiri.ui.profile.ProfileRoute
@@ -103,29 +104,17 @@ private fun MainScreenContent(
                 navigateToTalkList = { navigator.navigateTalk() },
                 navigateToBook = {}
             )
-            coinScreen(navigator)
-            coinDetailScreen(navigator)
+            coinGraph(
+                navigateToBack = { navigator.popBackStack() },
+                navigateToCoinDetail = { marketName ->
+                    navigator.navigateToCoinDetail(marketName)
+                }
+            )
             talkScreen(navigator)
             profileScreen(navigator)
         }
     }
 }
-
-private fun NavGraphBuilder.coinScreen(navigator: ScreenNavigator) {
-    composable(Route.CoinListScreen.routeName) {
-        CoinListScreen(
-            onBackClick = { navigator.popBackStack() },
-            navigateToCoinDetail = { navigator.navigateToCoinDetail() }
-        )
-    }
-}
-
-private fun NavGraphBuilder.coinDetailScreen(navigator: ScreenNavigator) =
-    composable(Route.CoinDetailScreen.routeName) {
-        CoinDetailScreen(
-            onBackClick = { navigator.popBackStack() },
-        )
-    }
 
 private fun NavGraphBuilder.talkScreen(navigator: ScreenNavigator) {
     composable(Route.TalkScreen.routeName) {
