@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.coinkiri.coinkiri.core.navigation.Route
 
 class ScreenNavigator(
     val navController: NavHostController
