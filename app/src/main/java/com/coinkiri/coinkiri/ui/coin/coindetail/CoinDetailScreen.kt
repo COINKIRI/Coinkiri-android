@@ -1,4 +1,4 @@
-package com.coinkiri.coinkiri.ui.coindetail
+package com.coinkiri.coinkiri.ui.coin.coindetail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -9,22 +9,31 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.coinkiri.coinkiri.core.designsystem.component.topappbar.CoinkiriTopBar
 import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
 import com.coinkiri.coinkiri.core.designsystem.theme.Gray200
 import com.coinkiri.coinkiri.core.designsystem.theme.White
-import com.coinkiri.coinkiri.ui.coindetail.component.CoinChartItem
-import com.coinkiri.coinkiri.ui.coindetail.component.CoinDetailInfoItem
-import com.coinkiri.coinkiri.ui.coindetail.component.NavigateToCoinTalkButton
+import com.coinkiri.coinkiri.ui.coin.component.CoinChartItem
+import com.coinkiri.coinkiri.ui.coin.component.CoinDetailInfoItem
+import com.coinkiri.coinkiri.ui.coin.component.NavigateToCoinTalkButton
 
 @Composable
 fun CoinDetailScreen(
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    marketName: String
 ) {
+    val viewModel: CoinDetailViewModel = hiltViewModel()
+
+    LaunchedEffect(marketName) {
+        viewModel.fetchCoinDetailInfo(marketName)
+    }
+
     Scaffold(
         topBar = {
             CoinDetailTopBar(
@@ -75,7 +84,8 @@ private fun CoinDetailContent(
 private fun CoinDetailScreenPreview() {
     CoinkiriTheme {
         CoinDetailScreen(
-            onBackClick = {}
+            onBackClick = {},
+            marketName = ""
         )
     }
 }

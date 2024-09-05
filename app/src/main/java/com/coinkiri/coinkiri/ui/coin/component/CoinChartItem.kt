@@ -1,4 +1,4 @@
-package com.coinkiri.coinkiri.ui.coindetail.component
+package com.coinkiri.coinkiri.ui.coin.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize

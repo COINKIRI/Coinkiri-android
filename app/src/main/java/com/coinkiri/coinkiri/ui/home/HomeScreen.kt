@@ -36,23 +36,23 @@ import com.coinkiri.coinkiri.ui.home.component.MenuTabCard
 
 @Composable
 fun HomeScreen(
-    onTalkClick: () -> Unit,
-    onBookClick: () -> Unit,
-    onPriceClick: () -> Unit,
-    onProfileClick: () -> Unit
+    navigateToProfile: () -> Unit,
+    navigateToCoinList: () -> Unit,
+    navigateToTalkList: () -> Unit,
+    navigateToBook: () -> Unit,
 ) {
     Scaffold(
         topBar = {
             HomeTopBar(
-                onProfileClick = onProfileClick
+                onProfileClick = navigateToProfile
             )
         },
         content = { innerPadding ->
             HomeScreenContent(
                 innerPadding,
-                onTalkClick = onTalkClick,
-                onPriceClick = onPriceClick,
-                onBookClick = onBookClick
+                onTalkClick = navigateToTalkList,
+                onPriceClick = navigateToCoinList,
+                onBookClick = navigateToBook
             )
         }
     )
@@ -199,10 +199,10 @@ private fun MenuSection(
 private fun HomeScreenPreview() {
     CoinkiriTheme {
         HomeScreen(
-            onBookClick = {},
-            onTalkClick = {},
-            onPriceClick = {},
-            onProfileClick = {}
+            navigateToProfile = {},
+            navigateToCoinList = {},
+            navigateToTalkList = {},
+            navigateToBook = {},
         )
     }
 }

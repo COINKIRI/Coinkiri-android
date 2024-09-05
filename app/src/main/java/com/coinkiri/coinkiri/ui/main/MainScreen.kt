@@ -1,5 +1,8 @@
 package com.coinkiri.coinkiri.ui.main
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -9,12 +12,14 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navOptions
-import com.coinkiri.coinkiri.ui.coin.CoinScreen
-import com.coinkiri.coinkiri.ui.coindetail.CoinDetailScreen
-import com.coinkiri.coinkiri.ui.home.HomeScreen
-import com.coinkiri.coinkiri.ui.login.LoginRoute
+import com.coinkiri.coinkiri.core.navigation.Route
+import com.coinkiri.coinkiri.ui.coin.coinlist.CoinListScreen
+import com.coinkiri.coinkiri.ui.coin.coindetail.CoinDetailScreen
+import com.coinkiri.coinkiri.ui.coin.navigation.coinGraph
+import com.coinkiri.coinkiri.ui.home.navigation.homeNavGraph
+import com.coinkiri.coinkiri.ui.login.navigation.loginGraph
 import com.coinkiri.coinkiri.ui.profile.ProfileRoute
-import com.coinkiri.coinkiri.ui.splash.SplashScreen
+import com.coinkiri.coinkiri.ui.splash.navigation.splashNavGraph
 import com.coinkiri.coinkiri.ui.talk.TalkScreen
 
 @Composable
@@ -36,88 +41,80 @@ private fun MainScreenContent(
     ) {
         NavHost(
             navController = navigator.navController,
-            startDestination = navigator.startDestination
+            startDestination = navigator.startDestination,
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                )
+            },
+            exitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { fullWidth -> -fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                )
+            },
+            popEnterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { fullWidth -> -fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                )
+            },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { fullWidth -> fullWidth },
+                    animationSpec = tween(durationMillis = 300)
+                )
+            }
         ) {
-            splashScreen(navigator)
-            homeScreen(navigator)
-            coinScreen(navigator)
-            coinDetailScreen(navigator)
+            splashNavGraph(
+                navigateToHome = {
+                    val navOptions = navOptions {
+                        popUpTo(navigator.navController.graph.findStartDestination().id) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
+                    navigator.navigateToHome(navOptions = navOptions)
+                },
+                navigateToLogIn = {
+                    val navOptions = navOptions {
+                        popUpTo(navigator.navController.graph.findStartDestination().id) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
+                    navigator.navigateToLogin(navOptions = navOptions)
+                }
+            )
+            loginGraph(
+                navigateToHome = {
+                    val navOptions = navOptions {
+                        popUpTo(navigator.navController.graph.findStartDestination().id) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
+                    navigator.navigateToHome(navOptions = navOptions)
+                }
+            )
+            homeNavGraph(
+                navigateToProfile = { navigator.navigateProfile() },
+                navigateToCoinList = { navigator.navigateCoinList() },
+                navigateToTalkList = { navigator.navigateTalk() },
+                navigateToBook = {}
+            )
+            coinGraph(
+                navigateToBack = { navigator.popBackStack() },
+                navigateToCoinDetail = { marketName ->
+                    navigator.navigateToCoinDetail(marketName)
+                }
+            )
             talkScreen(navigator)
             profileScreen(navigator)
-            loginRoute(navigator)
         }
     }
 }
-
-private fun NavGraphBuilder.splashScreen(navigator: ScreenNavigator) {
-    composable(Route.SplashScreen.routeName) {
-        SplashScreen(
-            navigateToHome = {
-                val navOptions = navOptions {
-                    popUpTo(navigator.navController.graph.findStartDestination().id) {
-                        inclusive = true
-                    }
-                    launchSingleTop = true
-                }
-                navigator.navigateToHome(navOptions = navOptions)
-            },
-            navigateToLogIn = {
-                val navOptions = navOptions {
-                    popUpTo(navigator.navController.graph.findStartDestination().id) {
-                        inclusive = true
-                    }
-                    launchSingleTop = true
-                }
-                navigator.navigateToLogin(
-                    navOptions = navOptions
-                )
-            }
-        )
-    }
-}
-
-private fun NavGraphBuilder.homeScreen(navigator: ScreenNavigator) {
-    composable(Route.HomeScreen.routeName) {
-        HomeScreen(
-            onProfileClick = { navigator.navigateProfile() },
-            onTalkClick = { navigator.navigateTalk() },
-            onPriceClick = { navigator.navigateCoin() },
-            onBookClick = { }
-        )
-    }
-}
-
-private fun NavGraphBuilder.loginRoute(navigator: ScreenNavigator) {
-    composable(Route.LoginScreen.routeName) {
-        LoginRoute(
-            navigateToHome = {
-                val navOptions = navOptions {
-                    popUpTo(navigator.navController.graph.findStartDestination().id) {
-                        inclusive = true
-                    }
-                    launchSingleTop = true
-                }
-                navigator.navigateToHome(navOptions = navOptions)
-            }
-        )
-    }
-}
-
-private fun NavGraphBuilder.coinScreen(navigator: ScreenNavigator) {
-    composable(Route.CoinScreen.routeName) {
-        CoinScreen(
-            onBackClick = { navigator.popBackStack() },
-            onCoinItemClick = { navigator.navigateToCoinDetail() }
-        )
-    }
-}
-
-private fun NavGraphBuilder.coinDetailScreen(navigator: ScreenNavigator) =
-    composable(Route.CoinDetailScreen.routeName) {
-        CoinDetailScreen(
-            onBackClick = { navigator.popBackStack() },
-        )
-    }
 
 private fun NavGraphBuilder.talkScreen(navigator: ScreenNavigator) {
     composable(Route.TalkScreen.routeName) {

@@ -9,7 +9,8 @@ kotlinxDatetime = "0.6.0"
 
 ## AndroidX
 androidxCore = "1.13.1"
-androidxLifecycle = "2.8.4"
+androidxLifecyclektx = "2.8.4"
+androidxLifecycleComposeAndroid = "2.8.4"
 androidxNavigation = "2.7.7"
 androidxActivity = "1.9.1"
 androidxCoreSplash = "1.0.1"
@@ -45,7 +46,8 @@ androidx-test-espresso = "3.6.1"
 
 [libraries]
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
-androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecyclektx" }
+androidx-lifecycle-runtime-compose-android = { module = "androidx.lifecycle:lifecycle-runtime-compose-android", version.ref = "androidxLifecycleComposeAndroid" }
 androidx-navigation-runtime-ktx = { module = "androidx.navigation:navigation-runtime-ktx", version.ref = "androidxNavigation" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "androidxCoreSplash" }

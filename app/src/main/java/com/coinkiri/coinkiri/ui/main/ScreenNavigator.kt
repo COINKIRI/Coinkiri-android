@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.coinkiri.coinkiri.core.navigation.Route
 
 class ScreenNavigator(
     val navController: NavHostController
@@ -25,12 +26,14 @@ class ScreenNavigator(
         navController.navigate(Route.LoginScreen.routeName, options)
     }
 
-    fun navigateCoin() {
-        navController.navigate(Route.CoinScreen.routeName)
+    fun navigateCoinList() {
+        navController.navigate(Route.CoinListScreen.routeName)
     }
 
-    fun navigateToCoinDetail() =
-        navController.navigate(Route.CoinDetailScreen.routeName)
+    fun navigateToCoinDetail(marketName: String) {
+        val route = Route.CoinDetailScreen.createRoute(marketName)
+        navController.navigate(route)
+    }
 
     fun navigateTalk() {
         navController.navigate(Route.TalkScreen.routeName)
