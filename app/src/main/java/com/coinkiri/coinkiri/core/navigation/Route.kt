@@ -25,7 +25,9 @@ sealed class Route(
     data object LoginScreen : Route("login")
 
     @Serializable
-    data object CoinDetailScreen : Route("coinDetail")
+    data object CoinDetailScreen : Route("coinDetail/{marketName}") {
+        fun createRoute(marketName: String): String = "coinDetail/$marketName"
+    }
 
     @Serializable
     data object TalkDetailScreen : Route("talkDetail")

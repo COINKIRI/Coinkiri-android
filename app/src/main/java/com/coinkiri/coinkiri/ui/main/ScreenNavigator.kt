@@ -30,8 +30,10 @@ class ScreenNavigator(
         navController.navigate(Route.CoinListScreen.routeName)
     }
 
-    fun navigateToCoinDetail() =
-        navController.navigate(Route.CoinDetailScreen.routeName)
+    fun navigateToCoinDetail(marketName: String) {
+        val route = Route.CoinDetailScreen.createRoute(marketName)
+        navController.navigate(route)
+    }
 
     fun navigateTalk() {
         navController.navigate(Route.TalkScreen.routeName)
