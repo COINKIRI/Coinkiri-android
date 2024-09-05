@@ -7,8 +7,6 @@ import jakarta.inject.Inject
 class GetUserInfoUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) {
-    suspend operator fun invoke(
-        accessToken: String,
-    ): Result<UserEntity> =
-        userRepository.getUserDetail(accessToken)
+    suspend operator fun invoke(): Result<UserEntity> =
+        userRepository.getUserDetail()
 }
