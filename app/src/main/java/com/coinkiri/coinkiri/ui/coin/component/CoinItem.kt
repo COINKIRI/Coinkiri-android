@@ -23,14 +23,14 @@ import com.coinkiri.coinkiri.ui.coin.model.CoinModel
 
 @Composable
 fun CoinItem(
-    onCoinItemClick: () -> Unit,
+    navigateToCoinDetail: () -> Unit,
     coin: CoinModel
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
-            .clickable { onCoinItemClick() }
+            .clickable { navigateToCoinDetail() }
             .padding(vertical = 5.dp, horizontal = 15.dp)
             .fillMaxWidth()
     ) {
@@ -83,7 +83,7 @@ fun CoinItem(
 private fun CoinItemPreview() {
     CoinkiriTheme {
         CoinItem(
-            onCoinItemClick = {},
+            navigateToCoinDetail = {},
             coin = CoinModel()
         )
     }

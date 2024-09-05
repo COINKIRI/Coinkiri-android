@@ -115,7 +115,7 @@ private fun NavGraphBuilder.coinScreen(navigator: ScreenNavigator) {
     composable(Route.CoinScreen.routeName) {
         CoinScreen(
             onBackClick = { navigator.popBackStack() },
-            onCoinItemClick = { navigator.navigateToCoinDetail() }
+            navigateToCoinDetail = { navigator.navigateToCoinDetail() }
         )
     }
 }

@@ -27,7 +27,7 @@ import com.coinkiri.coinkiri.ui.coin.model.CoinModel
 @Composable
 fun CoinScreen(
     onBackClick: () -> Unit,
-    onCoinItemClick: () -> Unit
+    navigateToCoinDetail: () -> Unit,
 ) {
     val viewModel: CoinViewModel = hiltViewModel()
     val coinInfo by viewModel.coinModel.collectAsStateWithLifecycle()
@@ -46,7 +46,7 @@ fun CoinScreen(
         content = { innerPadding ->
             CoinScreenContent(
                 padding = innerPadding,
-                onCoinItemClick = onCoinItemClick
+                navigateToCoinDetail = navigateToCoinDetail,
                 coinInfo = coinInfo
             )
         }
@@ -70,7 +70,7 @@ private fun CoinScreenTopBar(
 @Composable
 fun CoinScreenContent(
     padding: PaddingValues,
-    onCoinItemClick: () -> Unit
+    navigateToCoinDetail: () -> Unit,
     coinInfo: List<CoinModel>
 ) {
     Column(
@@ -86,7 +86,7 @@ fun CoinScreenContent(
             onSortByChangeRateClick = {}
         )
         CoinItems(
-            onCoinItemClick = onCoinItemClick
+            navigateToCoinDetail = navigateToCoinDetail,
             coinInfo = coinInfo
         )
     }
@@ -94,7 +94,7 @@ fun CoinScreenContent(
 
 @Composable
 fun CoinItems(
-    onCoinItemClick: () -> Unit
+    navigateToCoinDetail: () -> Unit,
     coinInfo: List<CoinModel>
 ) {
     LazyColumn(
@@ -104,7 +104,7 @@ fun CoinItems(
             val coin = coinInfo[index]
             CoinItem(
                 coin = coin,
-                onCoinItemClick = onCoinItemClick
+                navigateToCoinDetail = { navigateToCoinDetail() }
             )
         }
     }
@@ -116,7 +116,7 @@ private fun CoinScreenPreview() {
     CoinkiriTheme {
         CoinScreen(
             onBackClick = {},
-            onCoinItemClick = {}
+            navigateToCoinDetail = {}
         )
     }
 }
