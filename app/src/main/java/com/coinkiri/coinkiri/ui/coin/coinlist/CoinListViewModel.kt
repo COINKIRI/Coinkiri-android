@@ -2,10 +2,10 @@ package com.coinkiri.coinkiri.ui.coin.coinlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.coinkiri.coinkiri.domain.coin.entity.request.TickerRequestEntity
-import com.coinkiri.coinkiri.domain.coin.entity.response.TickerResponseEntity
+import com.coinkiri.coinkiri.domain.ticker.entity.request.TickerRequestEntity
+import com.coinkiri.coinkiri.domain.ticker.entity.response.TickerResponseEntity
 import com.coinkiri.coinkiri.domain.coin.usecase.GetCoinListUseCase
-import com.coinkiri.coinkiri.domain.coin.usecase.GetTicketsUseCase
+import com.coinkiri.coinkiri.domain.ticker.usecase.GetTicketsUseCase
 import com.coinkiri.coinkiri.ui.coin.model.CoinModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

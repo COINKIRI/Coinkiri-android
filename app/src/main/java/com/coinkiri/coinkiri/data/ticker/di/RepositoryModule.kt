@@ -1,7 +1,7 @@
 package com.coinkiri.coinkiri.data.ticker.di
 
 import com.coinkiri.coinkiri.data.ticker.repositoryimpl.TickerRepositoryImpl
-import com.coinkiri.coinkiri.domain.coin.repository.TickerRepository
+import com.coinkiri.coinkiri.domain.ticker.repository.TickerRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

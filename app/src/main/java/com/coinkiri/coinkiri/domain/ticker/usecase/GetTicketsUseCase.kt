@@ -1,8 +1,8 @@
-package com.coinkiri.coinkiri.domain.coin.usecase
+package com.coinkiri.coinkiri.domain.ticker.usecase
 
-import com.coinkiri.coinkiri.domain.coin.entity.request.TickerRequestEntity
-import com.coinkiri.coinkiri.domain.coin.entity.response.TickerResponseEntity
-import com.coinkiri.coinkiri.domain.coin.repository.TickerRepository
+import com.coinkiri.coinkiri.domain.ticker.entity.request.TickerRequestEntity
+import com.coinkiri.coinkiri.domain.ticker.entity.response.TickerResponseEntity
+import com.coinkiri.coinkiri.domain.ticker.repository.TickerRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

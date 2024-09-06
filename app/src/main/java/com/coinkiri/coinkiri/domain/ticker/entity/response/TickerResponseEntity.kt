@@ -1,4 +1,4 @@
-package com.coinkiri.coinkiri.domain.coin.entity.response
+package com.coinkiri.coinkiri.domain.ticker.entity.response
 
 data class TickerResponseEntity(
     val code: String,
