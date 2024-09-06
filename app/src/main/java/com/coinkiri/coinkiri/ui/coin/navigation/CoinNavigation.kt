@@ -7,10 +7,11 @@ import androidx.navigation.navArgument
 import com.coinkiri.coinkiri.core.navigation.Route
 import com.coinkiri.coinkiri.ui.coin.coindetail.CoinDetailScreen
 import com.coinkiri.coinkiri.ui.coin.coinlist.CoinListScreen
+import com.coinkiri.coinkiri.ui.coin.model.CoinModel
 
 fun NavGraphBuilder.coinGraph(
     navigateToBack: () -> Unit,
-    navigateToCoinDetail: (String) -> Unit
+    navigateToCoinDetail: (CoinModel) -> Unit
 ) {
     composable(Route.CoinListScreen.routeName) {
         CoinListScreen(
@@ -21,12 +22,21 @@ fun NavGraphBuilder.coinGraph(
 
     composable(
         route = Route.CoinDetailScreen.routeName,
-        arguments = listOf(navArgument("marketName") { type = NavType.StringType })
+        arguments = listOf(
+            navArgument("marketName") { type = NavType.StringType },
+            navArgument("koreanName") { type = NavType.StringType },
+            navArgument("symbol") { type = NavType.StringType }
+        )
     ) { backStackEntry ->
-        val marketName = backStackEntry.arguments?.getString("marketName") ?: ""
+        val coinModel = CoinModel(
+            marketName = backStackEntry.arguments?.getString("marketName") ?: "",
+            koreanName = backStackEntry.arguments?.getString("koreanName") ?: "",
+            symbol = backStackEntry.arguments?.getString("symbol") ?: ""
+        )
+
         CoinDetailScreen(
             onBackClick = navigateToBack,
-            marketName = marketName
+            coinModel = coinModel
         )
     }
 }

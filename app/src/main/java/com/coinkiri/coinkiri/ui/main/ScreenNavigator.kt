@@ -7,6 +7,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.coinkiri.coinkiri.core.navigation.Route
+import com.coinkiri.coinkiri.ui.coin.model.CoinModel
 
 class ScreenNavigator(
     val navController: NavHostController
@@ -30,8 +31,8 @@ class ScreenNavigator(
         navController.navigate(Route.CoinListScreen.routeName)
     }
 
-    fun navigateToCoinDetail(marketName: String) {
-        val route = Route.CoinDetailScreen.createRoute(marketName)
+    fun navigateToCoinDetail(coinModel: CoinModel) {
+        val route = Route.CoinDetailScreen.createRoute(coinModel)
         navController.navigate(route)
     }
 

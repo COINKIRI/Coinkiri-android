@@ -11,16 +11,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.coinkiri.coinkiri.R
 import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
 import com.coinkiri.coinkiri.core.designsystem.theme.Gray500
+import com.coinkiri.coinkiri.core.util.byteArrayToPainter
+import com.coinkiri.coinkiri.ui.coin.model.CoinModel
 
 @Composable
-fun CoinDetailInfoItem() {
+fun CoinDetailInfoItem(
+    coinModel: CoinModel
+) {
     Row(
         modifier = Modifier.padding(
             vertical = 10.dp,
@@ -28,7 +30,7 @@ fun CoinDetailInfoItem() {
         )
     ) {
         Image(
-            painter = painterResource(id = R.drawable.btc),
+            painter = byteArrayToPainter(coinModel.symbol),
             contentDescription = "",
             modifier = Modifier.size(30.dp)
         )
@@ -41,11 +43,11 @@ fun CoinDetailInfoItem() {
                 modifier = Modifier.padding(start = 10.dp)
             ) {
                 Text(
-                    text = "BTC",
+                    text = coinModel.marketName,
                     style = CoinkiriTheme.typography.titleLarge,
                 )
                 Text(
-                    text = "비트코인",
+                    text = coinModel.koreanName,
                     color = Gray500,
                     style = CoinkiriTheme.typography.titleLarge,
                 )
@@ -126,6 +128,8 @@ fun CoinDetailInfoItem() {
 @Composable
 private fun CoinDetailInfoItemPreview() {
     CoinkiriTheme {
-        CoinDetailInfoItem()
+        CoinDetailInfoItem(
+            coinModel = CoinModel()
+        )
     }
 }

@@ -1,5 +1,7 @@
 package com.coinkiri.coinkiri.core.navigation
 
+import android.net.Uri
+import com.coinkiri.coinkiri.ui.coin.model.CoinModel
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -25,8 +27,9 @@ sealed class Route(
     data object LoginScreen : Route("login")
 
     @Serializable
-    data object CoinDetailScreen : Route("coinDetail/{marketName}") {
-        fun createRoute(marketName: String): String = "coinDetail/$marketName"
+    data object CoinDetailScreen : Route("coinDetail/{marketName}/{koreanName}/{symbol}") {
+        fun createRoute(coin: CoinModel): String =
+            "coinDetail/${coin.marketName}/${coin.koreanName}/${Uri.encode(coin.symbol)}"
     }
 
     @Serializable

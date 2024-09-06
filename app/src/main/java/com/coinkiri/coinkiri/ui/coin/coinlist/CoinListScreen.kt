@@ -27,7 +27,7 @@ import com.coinkiri.coinkiri.ui.coin.model.CoinModel
 @Composable
 fun CoinListScreen(
     onBackClick: () -> Unit,
-    navigateToCoinDetail: (String) -> Unit,
+    navigateToCoinDetail: (CoinModel) -> Unit,
 ) {
     val viewModel: CoinListViewModel = hiltViewModel()
     val coinInfo by viewModel.coinModel.collectAsStateWithLifecycle()
@@ -70,7 +70,7 @@ private fun CoinListScreenTopBar(
 @Composable
 fun CoinListScreenContent(
     padding: PaddingValues,
-    navigateToCoinDetail: (String) -> Unit,
+    navigateToCoinDetail: (CoinModel) -> Unit,
     coinInfo: List<CoinModel>
 ) {
     Column(
@@ -94,7 +94,7 @@ fun CoinListScreenContent(
 
 @Composable
 fun CoinItems(
-    navigateToCoinDetail: (String) -> Unit,
+    navigateToCoinDetail: (CoinModel) -> Unit,
     coinInfo: List<CoinModel>
 ) {
     LazyColumn(
@@ -104,7 +104,7 @@ fun CoinItems(
             val coin = coinInfo[index]
             CoinItem(
                 coin = coin,
-                navigateToCoinDetail = { navigateToCoinDetail(coin.marketName) }
+                navigateToCoinDetail = { navigateToCoinDetail(coin) }
             )
         }
     }
