@@ -10,4 +10,7 @@ object Formatter {
 
     fun formattedSignedChangeRate(signedChangeRate: Double?): String =
         String.format(Locale.KOREAN, "%.2f", signedChangeRate?.times(100) ?: 0.0) + "%"
+
+    fun removeKrWPrefix(input: String?): String =
+        input?.replace("KRW-", "") ?: ""
 }
