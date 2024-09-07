@@ -11,9 +11,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.coinkiri.coinkiri.core.designsystem.theme.Black
 import com.coinkiri.coinkiri.core.designsystem.theme.Blue
 import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
 import com.coinkiri.coinkiri.core.designsystem.theme.Gray500
@@ -28,7 +30,8 @@ import com.coinkiri.coinkiri.ui.coin.model.TickerDetailModel
 @Composable
 fun CoinDetailInfoItem(
     coinModel: CoinModel,
-    tickerDetailInfo: TickerDetailModel
+    tickerDetailInfo: TickerDetailModel,
+    changeRateColor: Color
 ) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -66,6 +69,7 @@ fun CoinDetailInfoItem(
             ) {
                 Text(
                     text = "₩ " + formattedPrice(tickerDetailInfo.tradePrice),
+                    color = changeRateColor,
                     style = CoinkiriTheme.typography.headlineMedium
                 )
             }
@@ -77,7 +81,8 @@ fun CoinDetailInfoItem(
         modifier = Modifier.fillMaxWidth()
     ) {
         Column(
-            horizontalAlignment = Alignment.Start,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.weight(1f)
         ) {
             Text(
                 text = "증감률",
@@ -87,12 +92,14 @@ fun CoinDetailInfoItem(
             )
             Text(
                 text = formattedSignedChangeRate(tickerDetailInfo.signedChangeRate),
+                color = changeRateColor,
                 fontWeight = FontWeight.SemiBold,
                 style = CoinkiriTheme.typography.bodyMedium,
             )
         }
         Column(
-            horizontalAlignment = Alignment.Start,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.weight(1f)
         ) {
             Text(
                 text = "증감액",
@@ -101,13 +108,19 @@ fun CoinDetailInfoItem(
                 style = CoinkiriTheme.typography.bodyMedium,
             )
             Text(
-                text = formattedPrice(tickerDetailInfo.signedChangePrice),
+                text = if (tickerDetailInfo.signedChangePrice!! < 0) {
+                    "▼ " + formattedPrice(tickerDetailInfo.signedChangePrice)
+                } else {
+                    "▲ " + formattedPrice(tickerDetailInfo.signedChangePrice)
+                },
+                color = changeRateColor,
                 fontWeight = FontWeight.SemiBold,
                 style = CoinkiriTheme.typography.bodyMedium,
             )
         }
         Column(
-            horizontalAlignment = Alignment.Start,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.weight(1f)
         ) {
             Text(
                 text = "24H 고가",
@@ -123,7 +136,8 @@ fun CoinDetailInfoItem(
             )
         }
         Column(
-            horizontalAlignment = Alignment.Start,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.weight(1f)
         ) {
             Text(
                 text = "24H 저가",
@@ -147,7 +161,8 @@ private fun CoinDetailInfoItemPreview() {
     CoinkiriTheme {
         CoinDetailInfoItem(
             coinModel = CoinModel(),
-            tickerDetailInfo = TickerDetailModel()
+            tickerDetailInfo = TickerDetailModel(),
+            changeRateColor = Black
         )
     }
 }

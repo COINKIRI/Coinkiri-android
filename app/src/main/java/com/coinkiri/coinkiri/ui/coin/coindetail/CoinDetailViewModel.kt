@@ -1,7 +1,10 @@
 package com.coinkiri.coinkiri.ui.coin.coindetail
 
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.coinkiri.coinkiri.core.designsystem.theme.Blue
+import com.coinkiri.coinkiri.core.designsystem.theme.Red
 import com.coinkiri.coinkiri.domain.coin.usecase.GetCoinDetailInfoUseCase
 import com.coinkiri.coinkiri.domain.ticker.entity.request.TickerRequestEntity
 import com.coinkiri.coinkiri.domain.ticker.entity.response.TickerDetailResponseEntity
@@ -28,6 +31,10 @@ class CoinDetailViewModel @Inject constructor(
     private val _tickerDetailInfo = MutableStateFlow(TickerDetailModel())
     val tickerDetailModel: StateFlow<TickerDetailModel>
         get() = _tickerDetailInfo
+
+    private val _changeRateColor = MutableStateFlow(Color.Black)
+    val changeRateColor: StateFlow<Color>
+        get() = _changeRateColor
 
     suspend fun fetchCoinDetailInfo(marketName: String) {
         viewModelScope.launch {
@@ -71,6 +78,12 @@ class CoinDetailViewModel @Inject constructor(
             signedChangeRate = tickerDetailResponseEntity.signedChangeRate
         )
         _tickerDetailInfo.value = tickerDetail
+        changeRateColor(tickerDetailResponseEntity)
+    }
+
+    private fun changeRateColor(tickerDetailResponseEntity: TickerDetailResponseEntity) {
+        _changeRateColor.value =
+            if (tickerDetailResponseEntity.signedChangeRate!! < 0) Blue else Red
     }
 
     companion object {

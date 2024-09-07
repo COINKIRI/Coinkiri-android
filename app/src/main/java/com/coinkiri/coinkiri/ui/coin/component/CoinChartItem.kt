@@ -20,9 +20,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.coinkiri.coinkiri.R
+import com.coinkiri.coinkiri.core.designsystem.theme.Black
 import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
 import com.coinkiri.coinkiri.core.designsystem.theme.Gray400
-import com.coinkiri.coinkiri.core.designsystem.theme.Red
 import com.coinkiri.coinkiri.ui.coin.model.CoinDetailModel
 import com.coinkiri.coinkiri.ui.coin.model.PriceModel
 import com.github.mikephil.charting.charts.LineChart
@@ -33,7 +33,8 @@ import com.github.mikephil.charting.data.LineDataSet
 
 @Composable
 fun CoinChartItem(
-    coinDetailInfo: CoinDetailModel
+    coinDetailInfo: CoinDetailModel,
+    changeRateColor: Color
 ) {
     val reversedCoinInfo = coinDetailInfo.price.reversed()
 
@@ -42,7 +43,10 @@ fun CoinChartItem(
             .padding(vertical = 15.dp)
     ) {
         ChartInfo()
-        ChartViewItem(reversedCoinInfo)
+        ChartViewItem(
+            reversedCoinInfo = reversedCoinInfo,
+            changeRateColor = changeRateColor
+        )
     }
 }
 
@@ -93,7 +97,8 @@ private fun ChartInfo() {
 
 @Composable
 private fun ChartViewItem(
-    reversedCoinInfo: List<PriceModel>
+    reversedCoinInfo: List<PriceModel>,
+    changeRateColor: Color
 ) {
     val maxValue = reversedCoinInfo.maxOfOrNull { it.tradePrice.toFloat() } ?: 0f
     val minValue = reversedCoinInfo.minOfOrNull { it.tradePrice.toFloat() } ?: 0f
@@ -128,8 +133,8 @@ private fun ChartViewItem(
                     )
                 }
 
-            val startColor = Red.copy(alpha = 0.3f).toArgb()
-            val endColor = Red.copy(alpha = 0f).toArgb()
+            val startColor = changeRateColor.copy(alpha = 0.3f).toArgb()
+            val endColor = changeRateColor.copy(alpha = 0f).toArgb()
 
             val gradientDrawable = GradientDrawable(
                 GradientDrawable.Orientation.TOP_BOTTOM,
@@ -140,7 +145,7 @@ private fun ChartViewItem(
                 .apply {
                     fillDrawable = gradientDrawable
                     mode = LineDataSet.Mode.LINEAR
-                    color = Red.toArgb()
+                    color = changeRateColor.toArgb()
                     lineWidth = 1f
                     setDrawCircles(false)
                     setDrawValues(false)
@@ -159,7 +164,8 @@ private fun ChartViewItem(
 private fun CoinChartItemPreview() {
     CoinkiriTheme {
         CoinChartItem(
-            coinDetailInfo = CoinDetailModel()
+            coinDetailInfo = CoinDetailModel(),
+            changeRateColor = Black
         )
     }
 }

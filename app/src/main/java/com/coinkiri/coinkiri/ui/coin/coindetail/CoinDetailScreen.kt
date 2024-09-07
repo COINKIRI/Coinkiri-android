@@ -13,6 +13,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -36,6 +37,7 @@ fun CoinDetailScreen(
     val viewModel: CoinDetailViewModel = hiltViewModel()
     val coinDetailInfo by viewModel.coinDetailInfo.collectAsStateWithLifecycle()
     val tickerDetailInfo by viewModel.tickerDetailModel.collectAsStateWithLifecycle()
+    val changeRateColor by viewModel.changeRateColor.collectAsStateWithLifecycle()
 
     LaunchedEffect(coinModel.marketName) {
         viewModel.fetchCoinDetailInfo(coinModel.marketName)
@@ -53,7 +55,8 @@ fun CoinDetailScreen(
                 padding = paddingValues,
                 coinDetailInfo = coinDetailInfo,
                 tickerDetailInfo = tickerDetailInfo,
-                coinModel = coinModel
+                coinModel = coinModel,
+                changeRateColor = changeRateColor
             )
         }
     )
@@ -75,7 +78,8 @@ private fun CoinDetailContent(
     padding: PaddingValues,
     coinDetailInfo: CoinDetailModel,
     tickerDetailInfo: TickerDetailModel,
-    coinModel: CoinModel
+    coinModel: CoinModel,
+    changeRateColor: Color
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -88,11 +92,15 @@ private fun CoinDetailContent(
     ) {
         CoinDetailInfoItem(
             coinModel = coinModel,
-            tickerDetailInfo = tickerDetailInfo
+            tickerDetailInfo = tickerDetailInfo,
+            changeRateColor = changeRateColor
         )
         HorizontalDivider(color = Gray200)
         NavigateToCoinTalkButton()
-        CoinChartItem(coinDetailInfo)
+        CoinChartItem(
+            coinDetailInfo = coinDetailInfo,
+            changeRateColor = changeRateColor
+        )
     }
 }
 
