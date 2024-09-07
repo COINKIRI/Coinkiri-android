@@ -23,6 +23,7 @@ import com.coinkiri.coinkiri.R
 import com.coinkiri.coinkiri.core.designsystem.theme.Black
 import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
 import com.coinkiri.coinkiri.core.designsystem.theme.Gray400
+import com.coinkiri.coinkiri.core.util.CustomMarkerView
 import com.coinkiri.coinkiri.ui.coin.model.CoinDetailModel
 import com.coinkiri.coinkiri.ui.coin.model.PriceModel
 import com.github.mikephil.charting.charts.LineChart
@@ -81,7 +82,7 @@ private fun ChartInfo() {
                 horizontalArrangement = Arrangement.spacedBy(5.dp)
             ) {
                 Icon(
-                    painter = painterResource(R.drawable.ic_arrow_circle_up),
+                    painter = painterResource(R.drawable.ic_coin_detail_marker),
                     contentDescription = "",
                     tint = Color.Green,
                 )
@@ -112,6 +113,7 @@ private fun ChartViewItem(
             chart.legend.isEnabled = false
             chart.setPinchZoom(true)
             chart.setTouchEnabled(true)
+            chart.marker = CustomMarkerView(context, R.layout.custom_marker_view)
 
             // chart 축 설정
             chart.xAxis.isEnabled = false
