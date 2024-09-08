@@ -3,6 +3,7 @@ package com.coinkiri.coinkiri.ui.coin.coindetail
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.coinkiri.coinkiri.core.designsystem.theme.Black
 import com.coinkiri.coinkiri.core.designsystem.theme.Blue
 import com.coinkiri.coinkiri.core.designsystem.theme.Red
 import com.coinkiri.coinkiri.core.util.Formatter.formattedPrice
@@ -30,13 +31,29 @@ class CoinDetailViewModel @Inject constructor(
     val coinDetailInfo: StateFlow<CoinDetailModel>
         get() = _coinDetailInfo
 
+    private val _reversedCoinInfo = MutableStateFlow<List<PriceModel>>(emptyList())
+    val reversedCoinInfo: StateFlow<List<PriceModel>>
+        get() = _reversedCoinInfo
+
     private val _tickerDetailInfo = MutableStateFlow(TickerDetailModel())
     val tickerDetailModel: StateFlow<TickerDetailModel>
         get() = _tickerDetailInfo
 
-    private val _changeRateColor = MutableStateFlow(Color.Black)
+    private val _selectedPriceInfo = MutableStateFlow(PriceModel())
+    val selectedPriceInfo: StateFlow<PriceModel>
+        get() = _selectedPriceInfo
+
+    private val _changeRateColor = MutableStateFlow(Black)
     val changeRateColor: StateFlow<Color>
         get() = _changeRateColor
+
+    private val _maxValue = MutableStateFlow(0f)
+    val maxValue: StateFlow<Float>
+        get() = _maxValue
+
+    private val _minValue = MutableStateFlow(0f)
+    val minValue: StateFlow<Float>
+        get() = _minValue
 
     suspend fun fetchCoinDetailInfo(marketName: String) {
         viewModelScope.launch {
@@ -54,6 +71,7 @@ class CoinDetailViewModel @Inject constructor(
                         }
                     )
                     _coinDetailInfo.value = coinDetailModel
+                    updateSelectedPriceInfo(coinDetailModel.price.reversed())
                 }
                 .onFailure { exception ->
                     "${exception.message}"
@@ -68,6 +86,13 @@ class CoinDetailViewModel @Inject constructor(
                     updateTickerDetail(tickerDetailResponseEntity)
                 }
         }
+    }
+
+    fun updateSelectedPriceInfo(priceModel: PriceModel) {
+        _selectedPriceInfo.value = PriceModel(
+            candleDateTimeKst = priceModel.candleDateTimeKst,
+            tradePrice = priceModel.tradePrice
+        )
     }
 
     private fun updateTickerDetail(tickerDetailResponseEntity: TickerDetailResponseEntity) {
@@ -85,10 +110,21 @@ class CoinDetailViewModel @Inject constructor(
 
     private fun changeRateColor(tickerDetailResponseEntity: TickerDetailResponseEntity) {
         _changeRateColor.value =
-            if (tickerDetailResponseEntity.signedChangeRate!! < 0) Blue else Red
+            if (tickerDetailResponseEntity.signedChangeRate!! < NO_CHANGE_RATE) Blue else Red
+    }
+
+    private fun updateSelectedPriceInfo(priceList: List<PriceModel>) {
+        _reversedCoinInfo.value = priceList
+        calculateMinMaxValues(priceList)
+    }
+
+    private fun calculateMinMaxValues(priceList: List<PriceModel>) {
+        _maxValue.value = priceList.maxOfOrNull { it.tradePrice.toFloat() } ?: 0f
+        _minValue.value = priceList.minOfOrNull { it.tradePrice.toFloat() } ?: 0f
     }
 
     companion object {
         private const val TYPE = "ticker"
+        private const val NO_CHANGE_RATE = 0
     }
 }
