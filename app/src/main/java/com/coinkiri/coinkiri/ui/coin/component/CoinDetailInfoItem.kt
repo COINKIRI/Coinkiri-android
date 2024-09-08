@@ -9,30 +9,31 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.coinkiri.coinkiri.core.designsystem.theme.Black
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.coinkiri.coinkiri.core.designsystem.theme.Blue
 import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
 import com.coinkiri.coinkiri.core.designsystem.theme.Gray500
 import com.coinkiri.coinkiri.core.designsystem.theme.Red
-import com.coinkiri.coinkiri.core.util.Formatter.formattedSignedChangeRate
-import com.coinkiri.coinkiri.core.util.Formatter.formattedPrice
 import com.coinkiri.coinkiri.core.util.Formatter.removeKrWPrefix
 import com.coinkiri.coinkiri.core.util.byteArrayToPainter
+import com.coinkiri.coinkiri.ui.coin.coindetail.CoinDetailViewModel
 import com.coinkiri.coinkiri.ui.coin.model.CoinModel
-import com.coinkiri.coinkiri.ui.coin.model.TickerDetailModel
 
 @Composable
 fun CoinDetailInfoItem(
+    viewModel: CoinDetailViewModel,
     coinModel: CoinModel,
-    tickerDetailInfo: TickerDetailModel,
-    changeRateColor: Color
 ) {
+    val tickerDetailInfo by viewModel.tickerDetailModel.collectAsStateWithLifecycle()
+    val changeRateColor by viewModel.changeRateColor.collectAsStateWithLifecycle()
+
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier.padding(horizontal = 10.dp)
@@ -161,8 +162,7 @@ private fun CoinDetailInfoItemPreview() {
     CoinkiriTheme {
         CoinDetailInfoItem(
             coinModel = CoinModel(),
-            tickerDetailInfo = TickerDetailModel(),
-            changeRateColor = Black
+            viewModel = hiltViewModel()
         )
     }
 }
