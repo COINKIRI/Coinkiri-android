@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.coinkiri.coinkiri.core.designsystem.theme.Blue
 import com.coinkiri.coinkiri.core.designsystem.theme.Red
+import com.coinkiri.coinkiri.core.util.Formatter.formattedPrice
+import com.coinkiri.coinkiri.core.util.Formatter.formattedSignedChangeRate
 import com.coinkiri.coinkiri.domain.coin.usecase.GetCoinDetailInfoUseCase
 import com.coinkiri.coinkiri.domain.ticker.entity.request.TickerRequestEntity
 import com.coinkiri.coinkiri.domain.ticker.entity.response.TickerDetailResponseEntity
@@ -71,11 +73,11 @@ class CoinDetailViewModel @Inject constructor(
     private fun updateTickerDetail(tickerDetailResponseEntity: TickerDetailResponseEntity) {
         val tickerDetail = TickerDetailModel(
             code = tickerDetailResponseEntity.code,
-            tradePrice = tickerDetailResponseEntity.tradePrice,
-            highPrice = tickerDetailResponseEntity.highPrice,
-            lowPrice = tickerDetailResponseEntity.lowPrice,
-            signedChangePrice = tickerDetailResponseEntity.signedChangePrice,
-            signedChangeRate = tickerDetailResponseEntity.signedChangeRate
+            tradePrice = formattedPrice(tickerDetailResponseEntity.tradePrice),
+            highPrice = formattedPrice(tickerDetailResponseEntity.highPrice),
+            lowPrice = formattedPrice(tickerDetailResponseEntity.lowPrice),
+            signedChangePrice = formattedPrice(tickerDetailResponseEntity.signedChangePrice),
+            signedChangeRate = formattedSignedChangeRate(tickerDetailResponseEntity.signedChangeRate)
         )
         _tickerDetailInfo.value = tickerDetail
         changeRateColor(tickerDetailResponseEntity)

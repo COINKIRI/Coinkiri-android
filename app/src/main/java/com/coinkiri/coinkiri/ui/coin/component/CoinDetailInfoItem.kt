@@ -68,7 +68,7 @@ fun CoinDetailInfoItem(
                     .padding(vertical = 6.dp)
             ) {
                 Text(
-                    text = "₩ " + formattedPrice(tickerDetailInfo.tradePrice),
+                    text = "₩ " + tickerDetailInfo.tradePrice,
                     color = changeRateColor,
                     style = CoinkiriTheme.typography.headlineMedium
                 )
@@ -91,7 +91,7 @@ fun CoinDetailInfoItem(
                 style = CoinkiriTheme.typography.bodyMedium,
             )
             Text(
-                text = formattedSignedChangeRate(tickerDetailInfo.signedChangeRate),
+                text = tickerDetailInfo.signedChangeRate,
                 color = changeRateColor,
                 fontWeight = FontWeight.SemiBold,
                 style = CoinkiriTheme.typography.bodyMedium,
@@ -108,10 +108,10 @@ fun CoinDetailInfoItem(
                 style = CoinkiriTheme.typography.bodyMedium,
             )
             Text(
-                text = if (tickerDetailInfo.signedChangePrice!! < 0) {
-                    "▼ " + formattedPrice(tickerDetailInfo.signedChangePrice)
+                text = if (tickerDetailInfo.signedChangePrice < 0.toString()) {
+                    "▼ " + tickerDetailInfo.signedChangePrice
                 } else {
-                    "▲ " + formattedPrice(tickerDetailInfo.signedChangePrice)
+                    "▲ " + tickerDetailInfo.signedChangePrice
                 },
                 color = changeRateColor,
                 fontWeight = FontWeight.SemiBold,
@@ -129,7 +129,7 @@ fun CoinDetailInfoItem(
                 style = CoinkiriTheme.typography.bodyMedium,
             )
             Text(
-                text = formattedPrice(tickerDetailInfo.highPrice),
+                text = tickerDetailInfo.highPrice,
                 fontWeight = FontWeight.SemiBold,
                 color = Red,
                 style = CoinkiriTheme.typography.bodyMedium,
@@ -146,7 +146,7 @@ fun CoinDetailInfoItem(
                 style = CoinkiriTheme.typography.bodyMedium,
             )
             Text(
-                text = formattedPrice(tickerDetailInfo.lowPrice),
+                text = tickerDetailInfo.lowPrice,
                 fontWeight = FontWeight.SemiBold,
                 color = Blue,
                 style = CoinkiriTheme.typography.bodyMedium,
