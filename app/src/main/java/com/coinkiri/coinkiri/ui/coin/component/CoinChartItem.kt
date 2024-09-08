@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,40 +20,48 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.coinkiri.coinkiri.R
-import com.coinkiri.coinkiri.core.designsystem.theme.Black
 import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
 import com.coinkiri.coinkiri.core.designsystem.theme.Gray400
 import com.coinkiri.coinkiri.core.util.CustomMarkerView
-import com.coinkiri.coinkiri.ui.coin.model.CoinDetailModel
+import com.coinkiri.coinkiri.core.util.Formatter.formatDateTime
+import com.coinkiri.coinkiri.core.util.Formatter.formattedPrice
+import com.coinkiri.coinkiri.ui.coin.coindetail.CoinDetailViewModel
 import com.coinkiri.coinkiri.ui.coin.model.PriceModel
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 
 @Composable
 fun CoinChartItem(
-    coinDetailInfo: CoinDetailModel,
-    changeRateColor: Color
+    viewModel: CoinDetailViewModel,
 ) {
-    val reversedCoinInfo = coinDetailInfo.price.reversed()
+    val selectedPriceInfo by viewModel.selectedPriceInfo.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
             .padding(vertical = 15.dp)
     ) {
-        ChartInfo()
+        ChartInfo(selectedPriceInfo = selectedPriceInfo)
         ChartViewItem(
-            reversedCoinInfo = reversedCoinInfo,
-            changeRateColor = changeRateColor
+            viewModel = viewModel,
+            onPriceSelected = { priceInfo ->
+                viewModel.updateSelectedPriceInfo(priceInfo)
+            }
         )
     }
 }
 
 @Composable
-private fun ChartInfo() {
+private fun ChartInfo(
+    selectedPriceInfo: PriceModel
+) {
     Column(
         verticalArrangement = Arrangement.spacedBy(10.dp),
         horizontalAlignment = Alignment.Start,
@@ -73,7 +82,7 @@ private fun ChartInfo() {
             modifier = Modifier.padding(start = 3.dp)
         ) {
             Text(
-                text = "0000년 00월 00일, 09시 00분",
+                text = formatDateTime(selectedPriceInfo.candleDateTimeKst),
                 fontWeight = FontWeight.SemiBold,
                 style = CoinkiriTheme.typography.titleMedium,
                 color = Gray400
@@ -84,10 +93,10 @@ private fun ChartInfo() {
                 Icon(
                     painter = painterResource(R.drawable.ic_coin_detail_marker),
                     contentDescription = "",
-                    tint = Color.Green,
+                    tint = Color.Green
                 )
                 Text(
-                    text = "₩ 100,000,000",
+                    text = "₩ ${formattedPrice(selectedPriceInfo.tradePrice)}",
                     fontWeight = FontWeight.SemiBold,
                     style = CoinkiriTheme.typography.titleMedium,
                 )
@@ -98,11 +107,17 @@ private fun ChartInfo() {
 
 @Composable
 private fun ChartViewItem(
-    reversedCoinInfo: List<PriceModel>,
-    changeRateColor: Color
+    viewModel: CoinDetailViewModel,
+    onPriceSelected: (PriceModel) -> Unit
 ) {
-    val maxValue = reversedCoinInfo.maxOfOrNull { it.tradePrice.toFloat() } ?: 0f
-    val minValue = reversedCoinInfo.minOfOrNull { it.tradePrice.toFloat() } ?: 0f
+    val reversedCoinInfo by viewModel.reversedCoinInfo.collectAsStateWithLifecycle()
+    val changeRateColor by viewModel.changeRateColor.collectAsStateWithLifecycle()
+    val maxValue by viewModel.maxValue.collectAsStateWithLifecycle()
+    val minValue by viewModel.minValue.collectAsStateWithLifecycle()
+
+    if (reversedCoinInfo.isNotEmpty()) {
+        onPriceSelected(reversedCoinInfo.last())
+    }
 
     AndroidView(
         factory = { context ->
@@ -124,6 +139,19 @@ private fun ChartViewItem(
             chart.axisRight.axisMinimum = minValue
             chart.axisRight.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART)
 
+            chart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+                override fun onValueSelected(e: Entry?, h: Highlight?) {
+                    e?.let {
+                        val index = it.x.toInt()
+                        if (index in reversedCoinInfo.indices) {
+                            onPriceSelected(reversedCoinInfo[index])
+                        }
+                    }
+                }
+
+                override fun onNothingSelected() {}
+            })
+
             chart
         },
         update = { chart ->
@@ -135,7 +163,7 @@ private fun ChartViewItem(
                     )
                 }
 
-            val startColor = changeRateColor.copy(alpha = 0.3f).toArgb()
+            val startColor = changeRateColor.copy(alpha = 0.5f).toArgb()
             val endColor = changeRateColor.copy(alpha = 0f).toArgb()
 
             val gradientDrawable = GradientDrawable(
@@ -166,8 +194,7 @@ private fun ChartViewItem(
 private fun CoinChartItemPreview() {
     CoinkiriTheme {
         CoinChartItem(
-            coinDetailInfo = CoinDetailModel(),
-            changeRateColor = Black
+            viewModel = hiltViewModel(),
         )
     }
 }
