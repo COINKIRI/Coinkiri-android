@@ -10,14 +10,11 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.coinkiri.coinkiri.core.designsystem.component.topappbar.CoinkiriTopBar
 import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
 import com.coinkiri.coinkiri.core.designsystem.theme.Gray200
@@ -25,19 +22,14 @@ import com.coinkiri.coinkiri.core.designsystem.theme.White
 import com.coinkiri.coinkiri.ui.coin.component.CoinChartItem
 import com.coinkiri.coinkiri.ui.coin.component.CoinDetailInfoItem
 import com.coinkiri.coinkiri.ui.coin.component.NavigateToCoinTalkButton
-import com.coinkiri.coinkiri.ui.coin.model.CoinDetailModel
 import com.coinkiri.coinkiri.ui.coin.model.CoinModel
-import com.coinkiri.coinkiri.ui.coin.model.TickerDetailModel
 
 @Composable
 fun CoinDetailScreen(
     onBackClick: () -> Unit,
-    coinModel: CoinModel
+    coinModel: CoinModel,
 ) {
     val viewModel: CoinDetailViewModel = hiltViewModel()
-    val coinDetailInfo by viewModel.coinDetailInfo.collectAsStateWithLifecycle()
-    val tickerDetailInfo by viewModel.tickerDetailModel.collectAsStateWithLifecycle()
-    val changeRateColor by viewModel.changeRateColor.collectAsStateWithLifecycle()
 
     LaunchedEffect(coinModel.marketName) {
         viewModel.fetchCoinDetailInfo(coinModel.marketName)
@@ -53,10 +45,8 @@ fun CoinDetailScreen(
         content = { paddingValues ->
             CoinDetailContent(
                 padding = paddingValues,
-                coinDetailInfo = coinDetailInfo,
-                tickerDetailInfo = tickerDetailInfo,
                 coinModel = coinModel,
-                changeRateColor = changeRateColor
+                viewModel = viewModel
             )
         }
     )
@@ -76,10 +66,8 @@ private fun CoinDetailTopBar(
 @Composable
 private fun CoinDetailContent(
     padding: PaddingValues,
-    coinDetailInfo: CoinDetailModel,
-    tickerDetailInfo: TickerDetailModel,
     coinModel: CoinModel,
-    changeRateColor: Color
+    viewModel: CoinDetailViewModel
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -91,15 +79,13 @@ private fun CoinDetailContent(
             .padding(horizontal = 10.dp)
     ) {
         CoinDetailInfoItem(
+            viewModel = viewModel,
             coinModel = coinModel,
-            tickerDetailInfo = tickerDetailInfo,
-            changeRateColor = changeRateColor
         )
         HorizontalDivider(color = Gray200)
         NavigateToCoinTalkButton()
         CoinChartItem(
-            coinDetailInfo = coinDetailInfo,
-            changeRateColor = changeRateColor
+            viewModel = viewModel,
         )
     }
 }
