@@ -50,7 +50,6 @@ class CoinListViewModel @Inject constructor(
 
     private fun fetchTickers() {
         val marketNames = _coinModel.value.joinToString(",") { "\"${it.marketName}\"" }
-        Timber.e(marketNames)
         viewModelScope.launch {
             getTickersUseCase(TickerRequestEntity(TYPE, marketNames))
                 .collect { tickerResponseEntity ->
