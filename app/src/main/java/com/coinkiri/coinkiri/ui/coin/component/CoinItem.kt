@@ -62,7 +62,7 @@ fun CoinItem(
             horizontalAlignment = Alignment.End
         ) {
             Text(
-                text = "${Formatter.formattedTradePrice(coin.tradePrice)} 원",
+                text = "${Formatter.formattedPrice(coin.tradePrice)} 원",
                 style = CoinkiriTheme.typography.titleMedium
             )
             Text(

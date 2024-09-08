@@ -22,16 +22,18 @@ import com.coinkiri.coinkiri.core.designsystem.theme.White
 import com.coinkiri.coinkiri.ui.coin.component.CoinChartItem
 import com.coinkiri.coinkiri.ui.coin.component.CoinDetailInfoItem
 import com.coinkiri.coinkiri.ui.coin.component.NavigateToCoinTalkButton
+import com.coinkiri.coinkiri.ui.coin.model.CoinModel
 
 @Composable
 fun CoinDetailScreen(
     onBackClick: () -> Unit,
-    marketName: String
+    coinModel: CoinModel,
 ) {
     val viewModel: CoinDetailViewModel = hiltViewModel()
 
-    LaunchedEffect(marketName) {
-        viewModel.fetchCoinDetailInfo(marketName)
+    LaunchedEffect(coinModel.marketName) {
+        viewModel.fetchCoinDetailInfo(coinModel.marketName)
+        viewModel.fetchTickerDetail(coinModel.marketName)
     }
 
     Scaffold(
@@ -42,7 +44,9 @@ fun CoinDetailScreen(
         },
         content = { paddingValues ->
             CoinDetailContent(
-                padding = paddingValues
+                padding = paddingValues,
+                coinModel = coinModel,
+                viewModel = viewModel
             )
         }
     )
@@ -61,7 +65,9 @@ private fun CoinDetailTopBar(
 
 @Composable
 private fun CoinDetailContent(
-    padding: PaddingValues
+    padding: PaddingValues,
+    coinModel: CoinModel,
+    viewModel: CoinDetailViewModel
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -72,10 +78,15 @@ private fun CoinDetailContent(
             .padding(padding)
             .padding(horizontal = 10.dp)
     ) {
-        CoinDetailInfoItem()
+        CoinDetailInfoItem(
+            viewModel = viewModel,
+            coinModel = coinModel,
+        )
         HorizontalDivider(color = Gray200)
         NavigateToCoinTalkButton()
-        CoinChartItem()
+        CoinChartItem(
+            viewModel = viewModel,
+        )
     }
 }
 
@@ -85,7 +96,7 @@ private fun CoinDetailScreenPreview() {
     CoinkiriTheme {
         CoinDetailScreen(
             onBackClick = {},
-            marketName = ""
+            coinModel = CoinModel()
         )
     }
 }

@@ -106,8 +106,8 @@ private fun MainScreenContent(
             )
             coinGraph(
                 navigateToBack = { navigator.popBackStack() },
-                navigateToCoinDetail = { marketName ->
-                    navigator.navigateToCoinDetail(marketName)
+                navigateToCoinDetail = { coinModel ->
+                    navigator.navigateToCoinDetail(coinModel)
                 }
             )
             talkScreen(navigator)
