@@ -2,11 +2,13 @@ package com.coinkiri.coinkiri.core.designsystem.component.topappbar
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -25,8 +27,12 @@ fun CoinkiriTopBar(
     modifier: Modifier = Modifier,
     isShowBackButton: Boolean = false,
     isShowSearchButton: Boolean = false,
+    isShowCloseButton: Boolean = false,
+    isShowCompleteButton: Boolean = false,
     onBackClick: () -> Unit = {},
-    onSearchClick: () -> Unit = {}
+    onSearchClick: () -> Unit = {},
+    onCloseClick: () -> Unit = {},
+    onCompleteClick: () -> Unit = {}
 ) {
     TopAppBar(
         title = {
@@ -45,6 +51,14 @@ fun CoinkiriTopBar(
                     )
                 }
             }
+            if (isShowCloseButton) {
+                IconButton(onClick = onCloseClick) {
+                    Icon(
+                        imageVector = Icons.Default.Close,
+                        contentDescription = "close"
+                    )
+                }
+            }
         },
         actions = {
             if (isShowSearchButton) {
@@ -52,6 +66,14 @@ fun CoinkiriTopBar(
                     Icon(
                         imageVector = Icons.Default.Search,
                         contentDescription = "search"
+                    )
+                }
+            }
+            if (isShowCompleteButton) {
+                TextButton(onClick = onCompleteClick) {
+                    Text(
+                        text = "완료",
+                        color = Black
                     )
                 }
             }
