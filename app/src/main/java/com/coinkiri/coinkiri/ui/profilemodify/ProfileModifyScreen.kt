@@ -1,7 +1,12 @@
 package com.coinkiri.coinkiri.ui.profilemodify
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.coinkiri.coinkiri.core.designsystem.component.topappbar.CoinkiriTopBar
 import com.coinkiri.coinkiri.core.designsystem.theme.White
@@ -11,23 +16,21 @@ import com.coinkiri.coinkiri.ui.profilemodify.component.ProfileModifyItem
 @Composable
 fun ProfileModifyScreen(
     userInfo: UserEntity?,
+    onCloseClick: () -> Unit
 ) {
     Scaffold(
-        containerColor = White,
         topBar = {
             ProfileModifyTopBar(
-                onCloseClick = {
-                    // 닫기 버튼
-                },
+                onCloseClick = onCloseClick,
                 onCompleteClick = {
                     // 완료 버튼
                 }
             )
         },
-        content = { innerPadding ->
-            ProfileModifyItem(
-                padding = innerPadding,
-                userInfo
+        content = { padding ->
+            ProfileModifyContent(
+                padding = padding,
+                userInfo = userInfo
             )
         }
     )
@@ -47,10 +50,28 @@ private fun ProfileModifyTopBar(
     )
 }
 
+@Composable
+private fun ProfileModifyContent(
+    padding: PaddingValues,
+    userInfo: UserEntity?
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(White)
+    ) {
+        ProfileModifyItem(
+            padding = padding,
+            userInfo = userInfo
+        )
+    }
+}
+
 @Preview
 @Composable
 fun ProfileModifyScreenPreview() {
     ProfileModifyScreen(
+        onCloseClick = {},
         userInfo = UserEntity(
             pic = "",
             nickname = ""
