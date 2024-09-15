@@ -27,7 +27,6 @@ import com.coinkiri.coinkiri.core.designsystem.component.dialog.ConfirmationDial
 import com.coinkiri.coinkiri.core.designsystem.component.topappbar.CoinkiriTopBar
 import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
 import com.coinkiri.coinkiri.core.designsystem.theme.White
-import com.coinkiri.coinkiri.domain.user.entity.UserResponseEntity
 import com.coinkiri.coinkiri.ui.profile.component.OptionItem
 import com.coinkiri.coinkiri.ui.profile.component.SettingOptionsItem
 import com.coinkiri.coinkiri.ui.profile.component.UserInfoItem
