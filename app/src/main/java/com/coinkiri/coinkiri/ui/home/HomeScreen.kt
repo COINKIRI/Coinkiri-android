@@ -55,6 +55,7 @@ fun HomeScreen(
     val viewModel: HomeViewModel = hiltViewModel()
 
     LaunchedEffect(Unit) {
+        viewModel.fetchUserInfo()
         viewModel.fetchCoinRiseAndFallCount()
     }
 
@@ -136,6 +137,7 @@ private fun InfoSection(
 ) {
 
     val coinCount by viewModel.coinRiseAndFallCount.collectAsStateWithLifecycle()
+    val userInfo by viewModel.userInfo.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
@@ -143,7 +145,7 @@ private fun InfoSection(
             .fillMaxWidth()
     ) {
         Text(
-            text = "안녕하세요, 김영재님",
+            text = "안녕하세요, ${userInfo.nickname}님",
             color = White,
             fontWeight = FontWeight.Bold,
             style = CoinkiriTheme.typography.titleLarge,
