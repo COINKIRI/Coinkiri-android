@@ -1,4 +1,4 @@
-package com.coinkiri.coinkiri.ui.profilemodify.component
+package com.coinkiri.coinkiri.ui.profile.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -6,7 +6,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -40,12 +39,10 @@ import com.coinkiri.coinkiri.R
 import com.coinkiri.coinkiri.core.designsystem.theme.Black
 import com.coinkiri.coinkiri.core.designsystem.theme.Gray300
 import com.coinkiri.coinkiri.core.designsystem.theme.White
-import com.coinkiri.coinkiri.domain.user.entity.UserResponseEntity
 import com.coinkiri.coinkiri.ui.profile.model.UserInfoModel
 
 @Composable
-fun ProfileModifyItem(
-    padding: PaddingValues,
+fun EditItem(
     userInfo: UserInfoModel,
 ) {
 
@@ -55,7 +52,6 @@ fun ProfileModifyItem(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .padding(padding)
             .padding(30.dp)
     ) {
         Box(
@@ -109,31 +105,28 @@ fun ProfileModifyItem(
                 modifier = Modifier
                     .weight(0.4f)
             )
-            if (text != null) {
-                TextField(
-                    value = text!!,
-                    onValueChange = { newText ->
-                        text = newText
-                    },
-                    colors = TextFieldDefaults.colors(
-                        unfocusedIndicatorColor = Color.LightGray,
-                        focusedIndicatorColor = Black,
-                        unfocusedContainerColor = White,
-                        focusedContainerColor = White
-                    ),
-                    modifier = Modifier
-                        .weight(1f)
-                )
-            }
+            TextField(
+                value = text,
+                onValueChange = { newText ->
+                    text = newText
+                },
+                colors = TextFieldDefaults.colors(
+                    unfocusedIndicatorColor = Color.LightGray,
+                    focusedIndicatorColor = Black,
+                    unfocusedContainerColor = White,
+                    focusedContainerColor = White
+                ),
+                modifier = Modifier
+                    .weight(1f)
+            )
         }
     }
 }
 
 @Preview
 @Composable
-fun ProfileModifyItemPreview() {
-    ProfileModifyItem(
-        padding = PaddingValues(),
+fun EditItemPreview() {
+    EditItem(
         userInfo = UserInfoModel()
     )
 }

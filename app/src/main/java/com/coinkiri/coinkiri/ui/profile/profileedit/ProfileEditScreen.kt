@@ -1,27 +1,27 @@
-package com.coinkiri.coinkiri.ui.profilemodify
+package com.coinkiri.coinkiri.ui.profile.profileedit
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.coinkiri.coinkiri.core.designsystem.component.topappbar.CoinkiriTopBar
 import com.coinkiri.coinkiri.core.designsystem.theme.White
-import com.coinkiri.coinkiri.domain.user.entity.UserResponseEntity
 import com.coinkiri.coinkiri.ui.profile.model.UserInfoModel
-import com.coinkiri.coinkiri.ui.profilemodify.component.ProfileModifyItem
+import com.coinkiri.coinkiri.ui.profile.component.EditItem
 
 @Composable
-fun ProfileModifyScreen(
+fun ProfileEditScreen(
     userInfo: UserInfoModel,
     onCloseClick: () -> Unit
 ) {
     Scaffold(
         topBar = {
-            ProfileModifyTopBar(
+            ProfileEditTopBar(
                 onCloseClick = onCloseClick,
                 onCompleteClick = {
                     // 완료 버튼
@@ -29,7 +29,7 @@ fun ProfileModifyScreen(
             )
         },
         content = { padding ->
-            ProfileModifyContent(
+            ProfileEditContent(
                 padding = padding,
                 userInfo = userInfo
             )
@@ -38,7 +38,7 @@ fun ProfileModifyScreen(
 }
 
 @Composable
-private fun ProfileModifyTopBar(
+private fun ProfileEditTopBar(
     onCloseClick: () -> Unit,
     onCompleteClick: () -> Unit
 ) {
@@ -52,17 +52,17 @@ private fun ProfileModifyTopBar(
 }
 
 @Composable
-private fun ProfileModifyContent(
+private fun ProfileEditContent(
     padding: PaddingValues,
     userInfo: UserInfoModel,
 ) {
     Column(
         modifier = Modifier
+            .padding(padding)
             .fillMaxSize()
             .background(White)
     ) {
-        ProfileModifyItem(
-            padding = padding,
+        EditItem(
             userInfo = userInfo
         )
     }
@@ -70,8 +70,8 @@ private fun ProfileModifyContent(
 
 @Preview
 @Composable
-fun ProfileModifyScreenPreview() {
-    ProfileModifyScreen(
+fun ProfileEditScreenPreview() {
+    ProfileEditScreen(
         onCloseClick = {},
         userInfo = UserInfoModel()
     )
