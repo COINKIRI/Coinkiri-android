@@ -1,6 +1,7 @@
 package com.coinkiri.coinkiri.data.coin.service
 
 import com.coinkiri.coinkiri.core.network.BaseResponse
+import com.coinkiri.coinkiri.data.coin.dto.response.CoinCountResponseDto
 import com.coinkiri.coinkiri.data.coin.dto.response.CoinDetailResponseDto
 import com.coinkiri.coinkiri.data.coin.dto.response.CoinResponseDto
 import retrofit2.http.GET
@@ -14,4 +15,7 @@ interface CoinService {
     suspend fun getCoinDetailInfo(
         @Query("market") market: String
     ): BaseResponse<CoinDetailResponseDto>
+
+    @GET("/api/v1/coin/count/rise-fall")
+    suspend fun getCoinRiseAndFallCount(): BaseResponse<CoinCountResponseDto>
 }

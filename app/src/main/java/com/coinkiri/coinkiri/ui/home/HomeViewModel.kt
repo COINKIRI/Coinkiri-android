@@ -1,59 +1,50 @@
-package com.coinkiri.coinkiri.ui.profile
+package com.coinkiri.coinkiri.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.coinkiri.coinkiri.domain.token.repository.TokenRepository
+import com.coinkiri.coinkiri.domain.coin.usecase.GetCoinRiseAndFallCountUseCase
 import com.coinkiri.coinkiri.domain.user.entity.UserResponseEntity
 import com.coinkiri.coinkiri.domain.user.usecase.GetUserInfoUseCase
+import com.coinkiri.coinkiri.ui.home.model.CoinCountModel
 import com.coinkiri.coinkiri.ui.profile.model.UserInfoModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(
-    private val tokenRepository: TokenRepository,
-    private val getUserInfoUseCase: GetUserInfoUseCase,
+class HomeViewModel @Inject constructor(
+    private val getCoinRiseAndFallCountUseCase: GetCoinRiseAndFallCountUseCase,
+    private val getUserInfoUseCase: GetUserInfoUseCase
 ) : ViewModel() {
 
-    private val _profileSideEffects = MutableSharedFlow<ProfileSideEffect>()
-    val profileSideEffects: SharedFlow<ProfileSideEffect>
-        get() = _profileSideEffects
+    private val _coinRiseAndFallCount = MutableStateFlow(CoinCountModel())
+    val coinRiseAndFallCount: StateFlow<CoinCountModel>
+        get() = _coinRiseAndFallCount
 
     private val _userInfo = MutableStateFlow(UserInfoModel())
     val userInfo: StateFlow<UserInfoModel>
         get() = _userInfo
 
-    fun logout() {
+    suspend fun fetchCoinRiseAndFallCount() {
         viewModelScope.launch {
-            val result = runCatching { tokenRepository.clearInfo() }
+            val result = getCoinRiseAndFallCountUseCase()
+
             result
-                .onSuccess { handleLogoutSuccess() }
-                .onFailure { handleLogoutFailure(it) }
+                .onSuccess { coinCountResponseEntity ->
+                    _coinRiseAndFallCount.value = CoinCountModel(
+                        riseCount = coinCountResponseEntity.riseCount,
+                        fallCount = coinCountResponseEntity.fallCount
+                    )
+                }
+                .onFailure { exception ->
+                    "${exception.message}"
+                }
         }
     }
 
-    private suspend fun handleLogoutSuccess() {
-        _profileSideEffects.emit(
-            ProfileSideEffect.LogoutSuccess(
-                successMessage = "로그아웃 성공"
-            )
-        )
-    }
-
-    private suspend fun handleLogoutFailure(exception: Throwable) {
-        _profileSideEffects.emit(
-            ProfileSideEffect.LogoutFailure(
-                errorMessage = "로그아웃 실패: ${exception.message}"
-            )
-        )
-    }
-
-    fun fetchUserInfo() =
+    suspend fun fetchUserInfo() =
         viewModelScope.launch {
             val result = getUserInfoUseCase()
 

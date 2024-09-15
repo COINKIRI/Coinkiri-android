@@ -21,14 +21,24 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.coinkiri.coinkiri.R
+import com.coinkiri.coinkiri.core.designsystem.theme.Blue
 import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
+import com.coinkiri.coinkiri.core.designsystem.theme.Red
 import com.coinkiri.coinkiri.core.designsystem.theme.SemiBlue
 import com.coinkiri.coinkiri.core.designsystem.theme.White
 import com.coinkiri.coinkiri.ui.home.component.CoinTalkMenuCard
@@ -41,6 +51,14 @@ fun HomeScreen(
     navigateToTalkList: () -> Unit,
     navigateToBook: () -> Unit,
 ) {
+
+    val viewModel: HomeViewModel = hiltViewModel()
+
+    LaunchedEffect(Unit) {
+        viewModel.fetchUserInfo()
+        viewModel.fetchCoinRiseAndFallCount()
+    }
+
     Scaffold(
         topBar = {
             HomeTopBar(
@@ -52,7 +70,8 @@ fun HomeScreen(
                 innerPadding,
                 onTalkClick = navigateToTalkList,
                 onPriceClick = navigateToCoinList,
-                onBookClick = navigateToBook
+                onBookClick = navigateToBook,
+                viewModel = viewModel
             )
         }
     )
@@ -94,7 +113,8 @@ private fun HomeScreenContent(
     padding: PaddingValues,
     onTalkClick: () -> Unit,
     onBookClick: () -> Unit,
-    onPriceClick: () -> Unit
+    onPriceClick: () -> Unit,
+    viewModel: HomeViewModel
 ) {
     Column(
         modifier = Modifier
@@ -102,7 +122,7 @@ private fun HomeScreenContent(
             .fillMaxSize()
             .background(SemiBlue)
     ) {
-        InfoSection()
+        InfoSection(viewModel)
         MenuSection(
             onTalkClick = onTalkClick,
             onBookClick = onBookClick,
@@ -113,28 +133,54 @@ private fun HomeScreenContent(
 
 @Composable
 private fun InfoSection(
-    /*TODO text값 실 데이터 받아서 연결*/
+    viewModel: HomeViewModel
 ) {
+
+    val coinCount by viewModel.coinRiseAndFallCount.collectAsStateWithLifecycle()
+    val userInfo by viewModel.userInfo.collectAsStateWithLifecycle()
+
     Column(
         modifier = Modifier
             .padding(vertical = 20.dp, horizontal = 30.dp)
             .fillMaxWidth()
     ) {
         Text(
-            text = "안녕하세요, 김영재님",
+            text = "안녕하세요, ${userInfo.nickname}님",
             color = White,
             fontWeight = FontWeight.Bold,
             style = CoinkiriTheme.typography.titleLarge,
             modifier = Modifier.padding(bottom = 8.dp)
         )
         Text(
-            text = "오늘은 00개의 코인이 상승중이네요!",
+            text = buildAnnotatedString {
+                append("오늘은 ")
+                withStyle(
+                    style = SpanStyle(
+                        color = Red,
+                        fontSize = 20.sp
+                    )
+                ) {
+                    append("${coinCount.riseCount}")
+                }
+                append("개의 코인이 상승중이네요!")
+            },
             color = White,
             fontWeight = FontWeight.SemiBold,
             style = CoinkiriTheme.typography.titleMedium
         )
         Text(
-            text = "하락중인 코인은 000개에요!",
+            text = buildAnnotatedString {
+                append("하락중인 코인은 ")
+                withStyle(
+                    style = SpanStyle(
+                        color = Blue,
+                        fontSize = 20.sp
+                    )
+                ) {
+                    append("${coinCount.fallCount}")
+                }
+                append("개에요!")
+            },
             color = White,
             fontWeight = FontWeight.SemiBold,
             style = CoinkiriTheme.typography.titleMedium,

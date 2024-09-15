@@ -10,7 +10,7 @@ class UserDataSourceImpl @Inject constructor(
     private val userService: UserService
 ) : UserDataSource {
 
-    override suspend fun getUser(): BaseResponse<UserResponseDto> {
-        return userService.getUser()
-    }
+    override suspend fun getUser(): BaseResponse<UserResponseDto> =
+        userService.getUser()
+
 }

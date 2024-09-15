@@ -13,8 +13,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navOptions
 import com.coinkiri.coinkiri.core.navigation.Route
-import com.coinkiri.coinkiri.ui.coin.coinlist.CoinListScreen
-import com.coinkiri.coinkiri.ui.coin.coindetail.CoinDetailScreen
 import com.coinkiri.coinkiri.ui.coin.navigation.coinGraph
 import com.coinkiri.coinkiri.ui.home.navigation.homeNavGraph
 import com.coinkiri.coinkiri.ui.login.navigation.loginGraph

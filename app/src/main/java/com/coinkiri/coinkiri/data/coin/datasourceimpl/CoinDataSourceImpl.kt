@@ -2,6 +2,7 @@ package com.coinkiri.coinkiri.data.coin.datasourceimpl
 
 import com.coinkiri.coinkiri.core.network.BaseResponse
 import com.coinkiri.coinkiri.data.coin.datasource.CoinDataSource
+import com.coinkiri.coinkiri.data.coin.dto.response.CoinCountResponseDto
 import com.coinkiri.coinkiri.data.coin.dto.response.CoinDetailResponseDto
 import com.coinkiri.coinkiri.data.coin.dto.response.CoinResponseDto
 import com.coinkiri.coinkiri.data.coin.service.CoinService
@@ -16,4 +17,7 @@ class CoinDataSourceImpl @Inject constructor(
 
     override suspend fun getCoinDetail(market: String): BaseResponse<CoinDetailResponseDto> =
         coinService.getCoinDetailInfo(market)
+
+    override suspend fun getCoinRiseAndFallCount(): BaseResponse<CoinCountResponseDto> =
+        coinService.getCoinRiseAndFallCount()
 }
