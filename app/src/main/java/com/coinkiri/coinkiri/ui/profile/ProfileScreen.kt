@@ -27,10 +27,11 @@ import com.coinkiri.coinkiri.core.designsystem.component.dialog.ConfirmationDial
 import com.coinkiri.coinkiri.core.designsystem.component.topappbar.CoinkiriTopBar
 import com.coinkiri.coinkiri.core.designsystem.theme.CoinkiriTheme
 import com.coinkiri.coinkiri.core.designsystem.theme.White
-import com.coinkiri.coinkiri.domain.user.entity.UserEntity
+import com.coinkiri.coinkiri.domain.user.entity.UserResponseEntity
 import com.coinkiri.coinkiri.ui.profile.component.OptionItem
 import com.coinkiri.coinkiri.ui.profile.component.SettingOptionsItem
 import com.coinkiri.coinkiri.ui.profile.component.UserInfoItem
+import com.coinkiri.coinkiri.ui.profile.model.UserInfoModel
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -46,7 +47,7 @@ fun ProfileRoute(
         viewModel.profileSideEffects
             .flowWithLifecycle(lifecycleOwner.lifecycle)
             .collectLatest { sideEffect ->
-                when(sideEffect) {
+                when (sideEffect) {
                     is ProfileSideEffect.LogoutSuccess -> {
                         navigateToLogin()
                     }
@@ -89,7 +90,7 @@ fun ProfileRoute(
 private fun ProfileScreen(
     onBackClick: () -> Unit,
     onLogOutClick: () -> Unit,
-    userInfo: UserEntity?
+    userInfo: UserInfoModel
 ) {
 
     Scaffold(
@@ -123,7 +124,7 @@ private fun ProfileTopBar(
 private fun ProfileContent(
     padding: PaddingValues,
     onLogOutClick: () -> Unit,
-    userInfo: UserEntity?
+    userInfo: UserInfoModel
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -137,17 +138,14 @@ private fun ProfileContent(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.padding(10.dp),
         ) {
-            SettingOptionsItem(
-                title = "App 설정"
-            ) {
+            SettingOptionsItem(title = "App 설정") {
                 OptionItem(
                     text = "테마설정",
                     onOptionClick = { /*TODO*/ }
                 )
             }
-            SettingOptionsItem(
-                title = "고객지원"
-            ) {
+
+            SettingOptionsItem(title = "고객지원") {
                 OptionItem(
                     text = "정보수정",
                     onOptionClick = { /*TODO*/ }
@@ -161,9 +159,8 @@ private fun ProfileContent(
                     onOptionClick = { /*TODO*/ }
                 )
             }
-            SettingOptionsItem(
-                title = "기타"
-            ) {
+
+            SettingOptionsItem(title = "기타") {
                 OptionItem(
                     text = "약관 및 개인정보 취급방침",
                     onOptionClick = { /*TODO*/ }
@@ -180,10 +177,7 @@ private fun ProfileScreenPreview() {
         ProfileScreen(
             onBackClick = {},
             onLogOutClick = {},
-            userInfo = UserEntity(
-                pic = "",
-                nickname = ""
-            )
+            userInfo = UserInfoModel()
         )
     }
 }

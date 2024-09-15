@@ -3,16 +3,15 @@ package com.coinkiri.coinkiri.ui.profile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.coinkiri.coinkiri.domain.token.repository.TokenRepository
-import com.coinkiri.coinkiri.domain.user.entity.UserEntity
-import com.coinkiri.coinkiri.domain.user.repository.UserRepository
+import com.coinkiri.coinkiri.domain.user.entity.UserResponseEntity
 import com.coinkiri.coinkiri.domain.user.usecase.GetUserInfoUseCase
+import com.coinkiri.coinkiri.ui.profile.model.UserInfoModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,8 +24,8 @@ class ProfileViewModel @Inject constructor(
     val profileSideEffects: SharedFlow<ProfileSideEffect>
         get() = _profileSideEffects
 
-    private val _userInfo = MutableStateFlow<UserEntity?>(null)
-    val userInfo: StateFlow<UserEntity?>
+    private val _userInfo = MutableStateFlow(UserInfoModel())
+    val userInfo: StateFlow<UserInfoModel>
         get() = _userInfo
 
     fun logout() {
@@ -54,17 +53,23 @@ class ProfileViewModel @Inject constructor(
         )
     }
 
-    fun fetchUserInfo() {
+    fun fetchUserInfo() =
         viewModelScope.launch {
             val result = getUserInfoUseCase()
 
             result
-                .onSuccess { userInfo ->
-                    _userInfo.value = userInfo
+                .onSuccess { userResponseEntity ->
+                    handleFetchUserInfoSuccess(userResponseEntity)
                 }
                 .onFailure { exception ->
                     "${exception.message}"
                 }
         }
+
+    private fun handleFetchUserInfoSuccess(userResponseEntity: UserResponseEntity) {
+        _userInfo.value = UserInfoModel(
+            nickname = userResponseEntity.nickname,
+            pic = userResponseEntity.pic
+        )
     }
 }

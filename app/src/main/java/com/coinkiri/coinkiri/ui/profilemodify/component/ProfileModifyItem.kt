@@ -40,16 +40,17 @@ import com.coinkiri.coinkiri.R
 import com.coinkiri.coinkiri.core.designsystem.theme.Black
 import com.coinkiri.coinkiri.core.designsystem.theme.Gray300
 import com.coinkiri.coinkiri.core.designsystem.theme.White
-import com.coinkiri.coinkiri.domain.user.entity.UserEntity
+import com.coinkiri.coinkiri.domain.user.entity.UserResponseEntity
+import com.coinkiri.coinkiri.ui.profile.model.UserInfoModel
 
 @Composable
 fun ProfileModifyItem(
     padding: PaddingValues,
-    userInfo: UserEntity?
+    userInfo: UserInfoModel,
 ) {
 
     var text by remember {
-        mutableStateOf(userInfo?.nickname)
+        mutableStateOf(userInfo.nickname)
     }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -133,9 +134,6 @@ fun ProfileModifyItem(
 fun ProfileModifyItemPreview() {
     ProfileModifyItem(
         padding = PaddingValues(),
-        userInfo = UserEntity(
-            nickname = "",
-            pic = ""
-        )
+        userInfo = UserInfoModel()
     )
 }

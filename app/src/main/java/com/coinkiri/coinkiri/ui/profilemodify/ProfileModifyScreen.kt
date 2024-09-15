@@ -10,12 +10,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.coinkiri.coinkiri.core.designsystem.component.topappbar.CoinkiriTopBar
 import com.coinkiri.coinkiri.core.designsystem.theme.White
-import com.coinkiri.coinkiri.domain.user.entity.UserEntity
+import com.coinkiri.coinkiri.domain.user.entity.UserResponseEntity
+import com.coinkiri.coinkiri.ui.profile.model.UserInfoModel
 import com.coinkiri.coinkiri.ui.profilemodify.component.ProfileModifyItem
 
 @Composable
 fun ProfileModifyScreen(
-    userInfo: UserEntity?,
+    userInfo: UserInfoModel,
     onCloseClick: () -> Unit
 ) {
     Scaffold(
@@ -53,7 +54,7 @@ private fun ProfileModifyTopBar(
 @Composable
 private fun ProfileModifyContent(
     padding: PaddingValues,
-    userInfo: UserEntity?
+    userInfo: UserInfoModel,
 ) {
     Column(
         modifier = Modifier
@@ -72,9 +73,6 @@ private fun ProfileModifyContent(
 fun ProfileModifyScreenPreview() {
     ProfileModifyScreen(
         onCloseClick = {},
-        userInfo = UserEntity(
-            pic = "",
-            nickname = ""
-        )
+        userInfo = UserInfoModel()
     )
 }
