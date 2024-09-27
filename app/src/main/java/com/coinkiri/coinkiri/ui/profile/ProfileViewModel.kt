@@ -2,7 +2,7 @@ package com.coinkiri.coinkiri.ui.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.coinkiri.coinkiri.domain.token.repository.TokenRepository
+import com.coinkiri.coinkiri.domain.token.usecase.ClearTokenUseCase
 import com.coinkiri.coinkiri.domain.user.entity.UserResponseEntity
 import com.coinkiri.coinkiri.domain.user.usecase.GetUserInfoUseCase
 import com.coinkiri.coinkiri.ui.profile.model.UserInfoModel
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val tokenRepository: TokenRepository,
+    private val clearTokenUseCase: ClearTokenUseCase,
     private val getUserInfoUseCase: GetUserInfoUseCase,
 ) : ViewModel() {
 
@@ -30,7 +30,7 @@ class ProfileViewModel @Inject constructor(
 
     fun logout() {
         viewModelScope.launch {
-            val result = runCatching { tokenRepository.clearInfo() }
+            val result = runCatching { clearTokenUseCase }
             result
                 .onSuccess { handleLogoutSuccess() }
                 .onFailure { handleLogoutFailure(it) }
