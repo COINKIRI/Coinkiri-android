@@ -3,9 +3,8 @@ package com.coinkiri.coinkiri.ui.login
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.coinkiri.coinkiri.domain.login.entity.request.LoginRequestEntity
-import com.coinkiri.coinkiri.domain.login.repository.LoginRepository
-import com.coinkiri.coinkiri.domain.token.repository.TokenRepository
+import com.coinkiri.coinkiri.domain.login.usecase.PostLoginUseCase
+import com.coinkiri.coinkiri.domain.token.usecase.SetTokenUseCase
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -19,8 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginRepository: LoginRepository,
-    private val tokenRepository: TokenRepository,
+    private val postLoginUseCase: PostLoginUseCase,
+    private val setTokenUseCase: SetTokenUseCase,
     @ApplicationContext private val context: Context
 ) : ViewModel() {
 
@@ -66,9 +65,9 @@ class LoginViewModel @Inject constructor(
         platform: String
     ) {
         viewModelScope.launch {
-            loginRepository.postLogin(accessToken, LoginRequestEntity(platform))
+            postLoginUseCase(accessToken, platform)
                 .onSuccess { response ->
-                    tokenRepository.setTokens(response.accessToken, response.refreshToken)
+                    setTokenUseCase(response.accessToken, response.refreshToken)
                     _loginSideEffects.emit(
                         LoginSideEffect.LoginSuccess(
                             response.accessToken
